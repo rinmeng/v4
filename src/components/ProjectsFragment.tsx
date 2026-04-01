@@ -65,23 +65,27 @@ const projects = [
   {
     title: 'Tseng Photo',
     imgSrc: TsengPhoto,
-    description: `Tseng Photo is a professional photography portfolio website for showcasing works and services.
-     Built with the same robust tech stack as KDT, it features a modern, performant, and SEO-optimized design.`,
+    description: `A professional photography portfolio and booking website built for a real client, 
+        migrated from Squarespace to a fully custom solution — cutting annual costs by 88%, 
+        from $280 to $35/year (the $35 being solely the domain). Every layer of the stack 
+        was deliberately chosen to maximize free tiers: Vercel for hosting, Supabase for 
+        the database, UploadThing for file storage, and a custom Google Drive image proxy 
+        to avoid paid storage entirely. Engineered a dual-source image pipeline organized 
+        into a group → collection → image hierarchy, along with a compression pipeline 
+        that normalizes all uploads to WebP. Built a custom image component that gracefully 
+        handles Vercel's image transformation quota limits — pre-fetching to detect a 402 
+        response and falling back to an unoptimized <img> tag so images always render. 
+        The project involved close, iterative collaboration with the client through multiple 
+        rounds of design consultation and requirement refinement.`,
     link: 'https://tsengphoto.ca',
     github_link: 'https://github.com/rinmeng/tsengphoto',
     stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      JavaScriptLogo,
-      TypeScriptLogo,
-      NodeJSLogo,
       NextJSLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      TailwindCSSLogo,
-      ShadCNUILogo,
-      VercelLogo,
       SupabaseLogo,
+      VercelLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      TypeScriptLogo,
       PostgreSQLLogo,
     ],
   },
@@ -89,75 +93,62 @@ const projects = [
     title: "KPop Dance Team's Website",
 
     imgSrc: KDT,
-    description: `I oversaw the Digital Producer role where I was in charge of their website development, maintenance. 
-      I also developed a custom CMS for them to manage their website content such as links, positions, and sponsors.
-      Multiple iterations of the website were created, now it is in its v4 stage, built with NextJS and shadcn/ui with optimized SEO and performance.`,
+    description: `Served as Digital Producer and lead developer for KDT @ SUO's public-facing website 
+    across multiple iterations, now in its fourth major version. Architected and built 
+    a custom CMS that empowers non-technical executives to independently manage 
+    sponsorships, positions, and site content — significantly reducing reliance on 
+    developer intervention for day-to-day updates.`,
     link: 'https://kdtsuo.vercel.app',
     github_link: 'https://github.com/kdtsuo/v4',
     stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      JavaScriptLogo,
-      TypeScriptLogo,
-      NodeJSLogo,
       NextJSLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      TailwindCSSLogo,
-      ShadCNUILogo,
-      VercelLogo,
       SupabaseLogo,
+      VercelLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      TypeScriptLogo,
       PostgreSQLLogo,
     ],
   },
   {
     title: 'next-shadcn-supabase-starter',
     imgSrc: NSSS,
-    description: `A comprehensive starter template with everything you need to build modern web applications by me. 
-    Features enterprise-grade security with Supabase Auth, email verification, protected routes, and middleware proxy. 
-    Built with cutting-edge technologies including Next.js 15 App Router, TypeScript, Tailwind CSS, and Shadcn UI. 
-    Includes scalable architecture with API versioning, server components, and modular design for optimal developer experience.`,
+    description: `An open-source full-stack starter template designed to eliminate repetitive 
+      boilerplate when starting new web projects. Ships with enterprise-grade 
+      authentication via Supabase Auth, email verification, protected routes, and 
+      middleware proxy out of the box. Built around Next.js 15 App Router with 
+      API versioning and a modular architecture, so teams can move fast without 
+      sacrificing scalability or security. Recently used for Tseng Photo's website.`,
     link: 'https://template.rinm.dev',
     github_link: 'https://github.com/rinmeng/next-shadcn-supabase-starter',
     stacks: [
       NextJSLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      TailwindCSSLogo,
-      ShadCNUILogo,
       SupabaseLogo,
-      PostgreSQLLogo,
       VercelLogo,
-      NodeJSLogo,
-      HTML5Logo,
-      CSS3Logo,
-      GitLogo,
-      GitHubLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      TypeScriptLogo,
+      PostgreSQLLogo,
     ],
   },
   {
-    title: "SEACSUO's Website",
-
-    imgSrc: SEAC,
-    description: `Developed a now, production-ready website for the South East Asian Club (SEAC) 
-    that highlights the club’s mission, events, and merchandise. As the lead Web Developer, 
-    I designed and built a custom CMS to allow executives to easily manage and update content.`,
-    link: 'https://seacsuo.vercel.app',
-    github_link: 'https://github.com/seacsuo/v2',
+    title: 'Personal Website',
+    imgSrc: RM,
     stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      TypeScriptLogo,
-      NodeJSLogo,
       NextJSLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      TailwindCSSLogo,
-      ShadCNUILogo,
-      VercelLogo,
       SupabaseLogo,
+      VercelLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      TypeScriptLogo,
       PostgreSQLLogo,
     ],
+    description: `A living record of my growth as a developer, rebuilt from the ground up across 
+      five distinct iterations — from plain HTML/CSS to a full Next.js + TypeScript + 
+      shadcn/ui stack. Each version reflects the tools and patterns I was learning at 
+      the time, making the site itself a portfolio of my evolution as an engineer.`,
+    link: 'https://rinmeng.vercel.app',
+    github_link: 'https://github.com/rinmeng/v4-rinmeng',
   },
   {
     title: 'Collaborative Task Management System (CTMS)',
@@ -176,22 +167,45 @@ const projects = [
       DockerLogo,
     ],
     description: `
-    CTMS is role-based task management system that I developed for a course project 
-    with my group members. I was the assumed scrum master and I was also in charge of 
-    developing both the frontend and backend of the system.
-    This was my first full exposure to full-stack development and RESTful APIs.
+    A role-based task management system built collaboratively for a course project, 
+    where I took on the dual responsibility of Scrum Master and sole full-stack 
+    developer. Marked my first deep exposure to RESTful API design and full-stack 
+    architecture, bridging a React frontend with a Node.js/Express backend and 
+    PostgreSQL database — all containerized with Docker.
     `,
     github_link: 'https://github.com/rinmeng/NodeNinjas',
+  },
+  {
+    title: "SEACSUO's Website",
+
+    imgSrc: SEAC,
+    description: `
+    Led the design and development of a production-ready website for the South East 
+    Asian Club (SEAC) at UBC Okanagan. Beyond building the public-facing site, I 
+    developed a custom CMS that lets club executives self-manage events, merchandise, 
+    and announcements — removing the bottleneck of requiring a developer for routine 
+    content updates.
+      `,
+    link: 'https://seacsuo.vercel.app',
+    github_link: 'https://github.com/seacsuo/v2',
+    stacks: [
+      NextJSLogo,
+      SupabaseLogo,
+      VercelLogo,
+      ShadCNUILogo,
+      TailwindCSSLogo,
+      TypeScriptLogo,
+      PostgreSQLLogo,
+    ],
   },
   {
     title: '3 Big Booms',
     imgSrc: COSC416,
     stacks: [UnityLogo, CSharpLogo],
-    description: `This is a game development project in Unity that 
-    I developed with my team members for a course project. It was a Retro Game Jam with a 
-    "twist" theme, where we transformed a Bomberman game into a 2D platformer game.
-    I was in charge of the game design and development, where I designed the game's mechanics,
-    such as power-ups, enemy AI, and weapons.`,
+    description: `A retro-style game developed in Unity for a course Game Jam under a "twist" theme. 
+      Our team reimagined the classic Bomberman formula as a 2D platformer, and I owned 
+      the core gameplay systems — designing and implementing the power-up mechanics, 
+      enemy AI behavior, and weapon interactions. Published on itch.io.`,
     link: 'https://stewdio.itch.io/3-big-booms',
     github_link: 'https://github.com/eagno/cosc416-Project',
   },
@@ -211,37 +225,13 @@ const projects = [
       SupabaseLogo,
       PostgreSQLLogo,
     ],
-    description: `This PHIL331 is a project website that I developed for my course. 
-    I am in charge of the website development, making sure that the website
-    is functional and intuitive so that the users can easily take the surveys, and 
-    the data is collected properly. The main skills gained here are mainly using graphs
-    from shadcn/ui and Supabase's Auth Policies configuration.`,
+    description: `Built a fully functional survey platform for a Philosophy course research project, 
+        responsible for the entire development lifecycle. Focused on delivering an 
+        intuitive survey experience for participants while ensuring clean data capture 
+        in Supabase. Deepened my understanding of PostgreSQL Row-Level Security policies 
+        and data visualization with shadcn/ui charts.`,
     link: 'https://phil331.vercel.app',
     github_link: 'https://github.com/rinmeng/phil331',
-  },
-
-  {
-    title: 'Personal Website',
-    imgSrc: RM,
-    stacks: [
-      HTML5Logo,
-      CSS3Logo,
-      JavaScriptLogo,
-      TypeScriptLogo,
-      NodeJSLogo,
-      ViteLogo,
-      NextJSLogo,
-      ReactLogo,
-      TypeScriptLogo,
-      ShadCNUILogo,
-      TailwindCSSLogo,
-      VercelLogo,
-    ],
-    description: `There are many stages to my personal website development. This website follows similar iterations to KPop Dance Team's website, 
-    where I went from a simple HTML/CSS website, to NodeJS TailwindCSS, to ReactJS + TailwindCSS, to Vite + ReactTS + shadcn/ui,
-    and now to NextJS + ReactTS + shadcn/ui.`,
-    link: 'https://rinmeng.vercel.app',
-    github_link: 'https://github.com/rinmeng/v4-rinmeng',
   },
 
   {
@@ -257,18 +247,22 @@ const projects = [
       MySQLLogo,
       DockerLogo,
     ],
-    description: `PC8th is an PC parts e-commerce website that me and my partner developed for a course project. 
-    It is my first exposure to backend development and I learned an immense amount of how backend system works. 
-    This project was honorably mentioned by the professor of the course.`,
+    description: `A full-featured PC parts e-commerce platform built with a partner as an 
+      introduction to backend development. Implemented product listings, cart 
+      functionality, and a MySQL database layer through a Node.js/Express API — 
+      all containerized with Docker. The project received an honorable mention 
+      from the course professor for its execution and depth.`,
     github_link: 'https://github.com/rinmeng/pc8th',
   },
   {
     title: 'hikelowna',
     imgSrc: HIKELOWNA,
     stacks: [JavaLogo, AndroidStudioLogo, FirebaseLogo],
-    description: `hikelowna is a hiking trail management system that I developed for a course project with my group members. 
-    This was my first exposure to Android development and I learned a lot about how Android apps are developed 
-    and how they interact with the backend.`,
+    description: `A hiking trail management app for the Kelowna area, developed as a team for 
+        an Android development course. My first foray into mobile development, where 
+        I learned how to build and structure Android applications in Java, integrate 
+        real-time data with Firebase, and collaborate effectively on a shared codebase 
+        for a platform entirely new to me.`,
     github_link: 'https://github.com/rinmeng/hikelowna',
   },
 ];
