@@ -152,7 +152,7 @@ export default function Contacts() {
 
               {/* Contact Form Section */}
               <div className='w-full lg:w-2/3 p-6 items-center'>
-                {submitted ? (
+                {!submitted ? (
                   <SuccessMessage
                     onReset={() => {
                       form.reset();
