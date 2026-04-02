@@ -84,13 +84,13 @@ const ProjectCard: React.FC<
       </CardContent>
 
       <CardFooter className='flex justify-center items-center gap-2'>
-        <Button className='w-1/2' variant='secondary' onClick={onMoreInfo}>
+        <Button className='flex-1' variant='secondary' onClick={onMoreInfo}>
           <Info />
           More info
         </Button>
         {link && (
           <Button
-            className='w-1/2 cursor-pointer'
+            className='flex-1 cursor-pointer'
             variant='default'
             onClick={() => window.open(link)}
           >
