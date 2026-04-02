@@ -30,15 +30,17 @@ import Image, { StaticImageData } from 'next/image';
 
 function SuccessMessage({ onReset }: { onReset: () => void }) {
   return (
-    <div className='flex flex-col justify-center text-center items-center gap-6 py-8'>
-      <SendHorizonal className='w-12 h-12 text-primary' />
-      <h2 className='text-3xl font-extralight'>Message received.</h2>
-      <p className='text-muted-foreground'>
-        Thank you for reaching out. I&apos;ll be in touch with you shortly.
-      </p>
-      <Button variant='link' onClick={onReset}>
-        Send another message
-      </Button>
+    <div className='flex justify-center items-center w-full h-full'>
+      <div className='flex flex-col justify-center text-center items-center gap-6 py-8'>
+        <SendHorizonal className='w-12 h-12 text-primary' />
+        <h2 className='text-3xl font-extralight'>Message received.</h2>
+        <p className='text-muted-foreground'>
+          Thank you for reaching out. I&apos;ll be in touch with you shortly.
+        </p>
+        <Button variant='link' onClick={onReset}>
+          Send another message
+        </Button>
+      </div>
     </div>
   );
 }
