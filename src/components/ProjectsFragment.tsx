@@ -17,15 +17,21 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import {
+  ArrowRight,
+  ExternalLink,
+  Info,
+  SquareArrowOutUpRight,
+} from 'lucide-react';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects, ProjectFragmentProps } from '@/lib/project';
+import { PhotoCarousel } from '@/components/PhotoCarousel';
 
 const ProjectCard: React.FC<
   ProjectFragmentProps & { onMoreInfo: () => void }
-> = ({ title, imgSrc, description, stacks, onMoreInfo }) => {
+> = ({ title, images, description, link, stacks, onMoreInfo }) => {
   const maxVisibleStacks = 4;
   const visibleStacks = stacks?.slice(0, maxVisibleStacks) || [];
   const remainingCount = stacks ? stacks.length - maxVisibleStacks : 0;
@@ -38,11 +44,11 @@ const ProjectCard: React.FC<
 
   return (
     <Card className='flex flex-col h-full gap-0'>
-      <CardContent className='p-4'>
+      <CardContent>
         <AspectRatio ratio={16 / 9} className='mb-4'>
           <Image
             className='h-full w-full object-cover rounded-md'
-            src={imgSrc}
+            src={images[0]}
             alt={title}
             width={1920}
             height={1080}
@@ -77,10 +83,21 @@ const ProjectCard: React.FC<
         )}
       </CardContent>
 
-      <CardFooter className='mt-auto pt-0 px-4'>
-        <Button variant='default' className='w-full' onClick={onMoreInfo}>
+      <CardFooter className='flex justify-center items-center gap-2'>
+        <Button className='w-1/2' variant='secondary' onClick={onMoreInfo}>
+          <Info />
           More info
         </Button>
+        {link && (
+          <Button
+            className='w-1/2 cursor-pointer'
+            variant='default'
+            onClick={() => window.open(link)}
+          >
+            <SquareArrowOutUpRight />
+            View Project
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
@@ -150,16 +167,28 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
 
               <ScrollArea className='flex-1 min-h-0'>
                 <div className='px-6 py-6 space-y-4'>
-                  <AspectRatio ratio={16 / 9} className='mb-4'>
-                    <Image
-                      className='h-full w-full object-cover rounded-md'
-                      src={selectedProject.imgSrc}
-                      alt={selectedProject.title}
-                      width={1920}
-                      height={1080}
-                      style={{ objectFit: 'cover' }}
+                  {selectedProject.images.length > 1 ? (
+                    <PhotoCarousel
+                      images={selectedProject.images}
+                      itemsToShow={1}
+                      navigation='below'
+                      showButtons={true}
+                      showDots={true}
+                      autoplayDelay={3000}
+                      containerClassName='aspect-video'
+                      btnVariant='outline'
+                      objectFit='contain'
                     />
-                  </AspectRatio>
+                  ) : (
+                    <div className='relative aspect-video w-full'>
+                      <Image
+                        src={selectedProject.images[0]}
+                        alt={`Image 1`}
+                        fill
+                        className='rounded-md object-contain'
+                      />
+                    </div>
+                  )}
 
                   {selectedProject.stacks &&
                     selectedProject.stacks.length > 0 && (

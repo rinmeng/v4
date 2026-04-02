@@ -28,7 +28,10 @@ import NextJSLogo from '@/assets/logos/next-js-svgrepo-com.svg';
 
 // import images
 import KDT from '@/assets/projects/KDT.png';
-import TsengPhoto from '@/assets/projects/tsengphoto.png';
+import tsengphoto from '@/assets/projects/tsengphoto.png';
+import tsengphoto_2 from '@/assets/projects/tsengphoto-2.png';
+import tsengphoto_3 from '@/assets/projects/tsengphoto-3.png';
+import tsengphoto_4 from '@/assets/projects/tsengphoto-4.png';
 import RM from '@/assets/projects/RM.png';
 import PC8TH from '@/assets/projects/PC8TH.png';
 import CTMS from '@/assets/projects/CTMS.png';
@@ -41,7 +44,7 @@ import NSSS from '@/assets/projects/NSSS.png';
 export interface ProjectFragmentProps {
   title: string;
   stacks?: string[];
-  imgSrc: StaticImageData;
+  images: StaticImageData[];
   description: string;
   link?: string;
   github_link?: string;
@@ -50,7 +53,7 @@ export interface ProjectFragmentProps {
 export const projects: ProjectFragmentProps[] = [
   {
     title: 'Tseng Photo',
-    imgSrc: TsengPhoto,
+    images: [tsengphoto, tsengphoto_2, tsengphoto_3, tsengphoto_4],
     description: `A professional photography portfolio and booking website built for a real client, 
         migrated from Squarespace to a fully custom solution — cutting annual costs by 88%, 
         from $280 to $35/year (the $35 being solely the domain). Every layer of the stack 
@@ -78,7 +81,7 @@ export const projects: ProjectFragmentProps[] = [
   {
     title: "KPop Dance Team's Website",
 
-    imgSrc: KDT,
+    images: [KDT],
     description: `Served as Digital Producer and lead developer for KDT @ SUO's public-facing website 
     across multiple iterations, now in its fourth major version. Architected and built 
     a custom CMS that empowers non-technical executives to independently manage 
@@ -98,7 +101,7 @@ export const projects: ProjectFragmentProps[] = [
   },
   {
     title: 'next-shadcn-supabase-starter',
-    imgSrc: NSSS,
+    images: [NSSS],
     description: `An open-source full-stack starter template designed to eliminate repetitive 
       boilerplate when starting new web projects. Ships with enterprise-grade 
       authentication via Supabase Auth, email verification, protected routes, and 
@@ -119,7 +122,7 @@ export const projects: ProjectFragmentProps[] = [
   },
   {
     title: 'Personal Website',
-    imgSrc: RM,
+    images: [RM],
     stacks: [
       NextJSLogo,
       SupabaseLogo,
@@ -137,8 +140,8 @@ export const projects: ProjectFragmentProps[] = [
     github_link: 'https://github.com/rinmeng/v4-rinmeng',
   },
   {
-    title: 'Collaborative Task Management System (CTMS)',
-    imgSrc: CTMS,
+    title: 'CTMS',
+    images: [CTMS],
     stacks: [
       HTML5Logo,
       CSS3Logo,
@@ -164,7 +167,7 @@ export const projects: ProjectFragmentProps[] = [
   {
     title: "SEACSUO's Website",
 
-    imgSrc: SEAC,
+    images: [SEAC],
     description: `
     Led the design and development of a production-ready website for the South East 
     Asian Club (SEAC) at UBC Okanagan. Beyond building the public-facing site, I 
@@ -186,7 +189,7 @@ export const projects: ProjectFragmentProps[] = [
   },
   {
     title: '3 Big Booms',
-    imgSrc: COSC416,
+    images: [COSC416],
     stacks: [UnityLogo, CSharpLogo],
     description: `A retro-style game developed in Unity for a course Game Jam under a "twist" theme. 
       Our team reimagined the classic Bomberman formula as a 2D platformer, and I owned 
@@ -197,7 +200,7 @@ export const projects: ProjectFragmentProps[] = [
   },
   {
     title: 'PHIL331 Project DCE Surveys',
-    imgSrc: PHIL331,
+    images: [PHIL331],
     stacks: [
       HTML5Logo,
       CSS3Logo,
@@ -222,7 +225,7 @@ export const projects: ProjectFragmentProps[] = [
 
   {
     title: 'PC8TH',
-    imgSrc: PC8TH,
+    images: [PC8TH],
     stacks: [
       HTML5Logo,
       CSS3Logo,
@@ -242,7 +245,7 @@ export const projects: ProjectFragmentProps[] = [
   },
   {
     title: 'hikelowna',
-    imgSrc: HIKELOWNA,
+    images: [HIKELOWNA],
     stacks: [JavaLogo, AndroidStudioLogo, FirebaseLogo],
     description: `A hiking trail management app for the Kelowna area, developed as a team for 
         an Android development course. My first foray into mobile development, where 

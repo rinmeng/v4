@@ -77,18 +77,18 @@ export function PhotoCarousel({
     >
       <Carousel
         setApi={setApi}
-        className={cn('w-full', navigation === 'below' && 'pb-16')}
+        className={cn('w-full', navigation === 'below' && '')}
         opts={carouselOpts}
         plugins={plugins}
       >
         <CarouselContent
-          className={itemsToShow === 1 ? 'ml-0' : '-ml-2 md:-ml-4'}
+          className={itemsToShow === 1 ? '-ml-4' : '-ml-2 md:-ml-4'}
         >
           {images.map((src, index) => (
             <CarouselItem
               key={index}
               className={cn(
-                itemsToShow === 1 ? 'pl-0' : 'pl-2 md:pl-4',
+                itemsToShow === 1 ? 'pl-4' : 'pl-2 md:pl-4',
                 itemBasisClass,
               )}
             >
@@ -103,9 +103,10 @@ export function PhotoCarousel({
                     src={src}
                     alt={`Image ${index + 1}`}
                     fill
-                    className={
-                      objectFit === 'cover' ? 'object-cover' : 'object-contain'
-                    }
+                    className={cn(
+                      'rounded-md',
+                      objectFit === 'cover' ? 'object-cover' : 'object-contain',
+                    )}
                     style={{ objectPosition }}
                   />
                 </div>
@@ -121,11 +122,12 @@ export function PhotoCarousel({
                       src={src}
                       alt={`Image ${index + 1}`}
                       fill
-                      className={
+                      className={cn(
+                        'rounded-md',
                         objectFit === 'cover'
                           ? 'object-cover'
-                          : 'object-contain'
-                      }
+                          : 'object-contain',
+                      )}
                       style={{ objectPosition }}
                     />
                   </CardContent>
