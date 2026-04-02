@@ -193,21 +193,21 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                   <Button
                     variant='secondary'
                     size='lg'
-                    className='w-full sm:w-auto'
+                    className='w-full sm:w-auto cursor-pointer'
                     onClick={() => window.open(selectedProject.github_link)}
                   >
                     View Repository
-                    <ExternalLink className='ml-2 h-4 w-4 cursor-pointer' />
+                    <ExternalLink className='ml-2 h-4 w-4' />
                   </Button>
                 )}
                 {selectedProject.link && (
                   <Button
                     size='lg'
-                    className='w-full sm:w-auto'
+                    className='w-full sm:w-auto cursor-pointer'
                     onClick={() => window.open(selectedProject.link)}
                   >
                     View Project
-                    <ExternalLink className='ml-2 h-4 w-4 cursor-pointer' />
+                    <ExternalLink className='ml-2 h-4 w-4 ' />
                   </Button>
                 )}
               </DialogFooter>
