@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -36,7 +37,7 @@ const ProjectCard: React.FC<
       : description;
 
   return (
-    <Card className='flex flex-col h-full'>
+    <Card className='flex flex-col h-full gap-0'>
       <CardContent className='p-4'>
         <AspectRatio ratio={16 / 9} className='mb-4'>
           <Image
@@ -77,7 +78,7 @@ const ProjectCard: React.FC<
       </CardContent>
 
       <CardFooter className='mt-auto pt-0 px-4 pb-4'>
-        <Button variant='secondary' className='w-full' onClick={onMoreInfo}>
+        <Button variant='default' className='w-full' onClick={onMoreInfo}>
           More info
         </Button>
       </CardFooter>
@@ -147,8 +148,8 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                 </DialogTitle>
               </DialogHeader>
 
-              <div className='flex-1 overflow-y-auto px-6 py-6'>
-                <div className='space-y-4'>
+              <ScrollArea className='flex-1 min-h-0'>
+                <div className='px-6 py-6 space-y-4'>
                   <AspectRatio ratio={16 / 9} className='mb-4'>
                     <Image
                       className='h-full w-full object-cover rounded-md'
@@ -185,7 +186,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                     {selectedProject.description}
                   </div>
                 </div>
-              </div>
+              </ScrollArea>
 
               <DialogFooter>
                 {selectedProject.github_link && (
@@ -196,7 +197,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                     onClick={() => window.open(selectedProject.github_link)}
                   >
                     View Repository
-                    <ExternalLink className='ml-2 h-4 w-4' />
+                    <ExternalLink className='ml-2 h-4 w-4 cursor-pointer' />
                   </Button>
                 )}
                 {selectedProject.link && (
@@ -206,7 +207,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                     onClick={() => window.open(selectedProject.link)}
                   >
                     View Project
-                    <ExternalLink className='ml-2 h-4 w-4' />
+                    <ExternalLink className='ml-2 h-4 w-4 cursor-pointer' />
                   </Button>
                 )}
               </DialogFooter>
