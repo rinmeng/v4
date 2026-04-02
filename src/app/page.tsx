@@ -1,21 +1,21 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import cal from "@/assets/cal.jpeg";
+'use client';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import cal from '@/assets/cal.jpeg';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ArrowBigRightIcon, SquareArrowOutUpRight } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import Tools from "@/components/Tools";
-import Footer from "@/components/Footer";
-import ProjectsFragment from "@/components/ProjectsFragment";
+} from '@/components/ui/card';
+import { ArrowBigRightIcon, SquareArrowOutUpRight } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import Tools from '@/components/Tools';
+import Footer from '@/components/Footer';
+import ProjectsFragment from '@/components/ProjectsFragment';
 
 // Animation configuration - adjust these to control timing
 const CONFIG = {
@@ -25,12 +25,12 @@ const CONFIG = {
 };
 
 const textArray: string[] = [
-  "Video Editing",
-  "Making Beautiful Websites",
-  "UI/UX Designs",
-  "Web Development",
-  "Learning New Frameworks",
-  "Analyzing Data",
+  'Video Editing',
+  'Beautiful Websites',
+  'UI/UX Designs',
+  'Web Development',
+  'Learning Frameworks',
+  'Analyzing Data',
   // You can add more items here and they'll work automatically
 ];
 
@@ -48,7 +48,7 @@ const AnimatedText: React.FC = () => {
   }, []);
 
   const currentText = textArray[currentTextIndex];
-  const words = currentText.split(" ");
+  const words = currentText.split(' ');
 
   // Calculate appropriate stagger delay based on word count
   // This ensures that all words will begin animating within the maxStaggerDelay time
@@ -59,7 +59,7 @@ const AnimatedText: React.FC = () => {
   );
 
   return (
-    <div className='font-extralight min-w-full px-0 md:px-6 h-12 md:h-16 xl:h-24 flex items-center overflow-hidden'>
+    <div className='font-extralight min-w-full px-0 md:px-6 h-16 xl:h-24 flex items-center overflow-hidden'>
       <div className='relative w-full text-center' key={key}>
         {words.map((word, wordIndex) => (
           <span
@@ -68,7 +68,7 @@ const AnimatedText: React.FC = () => {
             style={{
               animationDelay: `${wordIndex * actualStaggerDelay}s`,
               opacity: 0,
-              position: "relative",
+              position: 'relative',
             }}
           >
             {word}&nbsp;
@@ -108,9 +108,9 @@ const Home: React.FC = () => {
               <CardHeader>
                 <div>
                   <div className='text-xl md:text-3xl font-bold'>
-                    hi! i&apos;m <span>rin</span> and i like{" "}
+                    hi! i&apos;m <span>rin</span> and i like{' '}
                   </div>
-                  <div className='text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full'>
+                  <div className='text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full'>
                     <AnimatedText />
                   </div>
                 </div>
