@@ -77,7 +77,7 @@ const ProjectCard: React.FC<
         )}
       </CardContent>
 
-      <CardFooter className='mt-auto pt-0 px-4 pb-4'>
+      <CardFooter className='mt-auto pt-0 px-4'>
         <Button variant='default' className='w-full' onClick={onMoreInfo}>
           More info
         </Button>
