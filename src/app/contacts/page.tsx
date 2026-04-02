@@ -1,11 +1,16 @@
 'use client';
-
 import githublogo from '@/assets/icons/githublogo.png';
 import instagramlogo from '@/assets/icons/instagramlogo.png';
 import linkedinlogo from '@/assets/icons/linkedinlogo.png';
 import maillogo from '@/assets/icons/maillogo.png';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2, SendHorizonal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -14,37 +19,30 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Toaster } from 'sonner';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import * as z from 'zod';
-import emailjs from '@emailjs/browser';
+import {
+  contactSchema,
+  sendContactForm,
+  type ContactFormValues,
+} from '@/lib/contact.service';
+import { toast, Toaster } from 'sonner';
 import Footer from '@/components/Footer';
-import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 import Image, { StaticImageData } from 'next/image';
 
-// Define schema for form validation
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Name must be at least 2 characters.',
-  }),
-  email: z.string().email({
-    message: 'Please enter a valid email address.',
-  }),
-  message: z.string().min(10, {
-    message: 'Message must be at least 10 characters.',
-  }),
-});
+function SuccessMessage({ onReset }: { onReset: () => void }) {
+  return (
+    <div className='flex flex-col justify-center text-center items-center gap-6 py-8'>
+      <SendHorizonal className='w-12 h-12 text-primary' />
+      <h2 className='text-3xl font-extralight'>Message received.</h2>
+      <p className='text-muted-foreground'>
+        Thank you for reaching out. I&apos;ll be in touch with you shortly.
+      </p>
+      <Button variant='link' onClick={onReset}>
+        Send another message
+      </Button>
+    </div>
+  );
+}
 
-const service: string = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-const template: string = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-const user: string = process.env.NEXT_PUBLIC_EMAILJS_USER_ID!;
-
-// Define interface for social links
 interface SocialLink {
   icon: StaticImageData;
   href: string;
@@ -52,54 +50,33 @@ interface SocialLink {
 }
 
 export default function Contacts() {
-  const [isCurrentlySubmitting, setIsCurrentlySubmitting] = useState(false);
-  // Define form with React Hook Form and zod validation
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       name: '',
       email: '',
+      phone: '',
       message: '',
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsCurrentlySubmitting(true);
-    console.log(values);
-
-    interface EmailJSTemplateParams {
-      from_name: string;
-      from_email: string;
-      message: string;
-      [key: string]: string; // Allow for additional string properties
-    }
-
-    const templateParams: EmailJSTemplateParams = {
-      from_name: values.name,
-      from_email: values.email,
-      message: values.message,
-    };
-
+  const onSubmit = async (values: ContactFormValues) => {
+    setIsSubmitting(true);
     try {
-      const response = await emailjs.send(
-        service,
-        template,
-        templateParams,
-        user,
-      );
-      console.log('SUCCESS!', response.status, response.text);
-      toast.success('Message sent!', {
-        description: "Thank you for your message. We'll get back to you soon.",
+      await sendContactForm(values);
+      setSubmitted(true);
+      toast.success('Message sent', {
+        description: 'Your message has been sent successfully.',
       });
-      form.reset();
-    } catch (err) {
-      console.log('FAILED...', err);
-      toast.error('Message failed to send!', {
-        description:
-          'Sorry, we were unable to send your message. Please try again later.',
+    } catch (error: any) {
+      toast.error('Failed to send message', {
+        description: error.message,
       });
     } finally {
-      setIsCurrentlySubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -136,8 +113,8 @@ export default function Contacts() {
           <Card className='container m-5 w-full max-w-6xl overflow-hidden gap-0 '>
             <CardContent className='p-0 flex flex-col lg:flex-row relative'>
               {/* Social Media Cards Section */}
-              <div className='w-full lg:w-1/3 flex flex-col justify-center items-center p-12 '>
-                <div className='w-full grow justify-center flex flex-col py-8 space-y-2'>
+              <div className='w-full lg:w-1/3 flex flex-col justify-center items-center p-6'>
+                <div className='w-full grow justify-center flex flex-col space-y-2'>
                   <h2 className='text-3xl font-bold text-center pb-2'>
                     Connect With Me
                   </h2>
@@ -155,7 +132,7 @@ export default function Contacts() {
                             alt={link.title}
                             width={48}
                             height={48}
-                            className='dark:invert-100 not-dark:invert-0'
+                            className='dark:invert not-dark:invert-0'
                           />
                           <CardTitle className='text-xl font-extralight text-primary-foreground'>
                             {link.title}
@@ -172,77 +149,110 @@ export default function Contacts() {
               <div className='block lg:hidden w-full h-0.5 bg-muted my-4'></div>
 
               {/* Contact Form Section */}
-              <div className='w-full lg:w-2/3 p-12'>
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className='space-y-6'
-                  >
-                    <h2 className='text-3xl font-bold text-center mb-6'>
-                      Directly Contact Me
-                    </h2>
-                    <FormField
-                      control={form.control}
-                      name='name'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className='text-xl'>Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder='Your name' {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='email'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className='text-xl'>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder='your.email@example.com'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='message'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className='text-xl'>Message</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder='Your message...'
-                              className='min-h-32 resize-none'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button
-                      disabled={isCurrentlySubmitting}
-                      type='submit'
-                      variant='default'
-                      className='w-full'
+              <div className='w-full lg:w-2/3 p-6 items-center'>
+                {submitted ? (
+                  <SuccessMessage
+                    onReset={() => {
+                      form.reset();
+                      setSubmitted(false);
+                    }}
+                  />
+                ) : (
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className='space-y-6'
                     >
-                      {isCurrentlySubmitting && (
-                        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                      )}
-                      {isCurrentlySubmitting ? 'Sending...' : 'Send Message'}
-                    </Button>
-                  </form>
-                </Form>
+                      <h2 className='text-3xl font-bold text-center mb-6'>
+                        Directly Contact Me
+                      </h2>
+
+                      <FormField
+                        control={form.control}
+                        name='name'
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Name *</FormLabel>
+                            <FormControl>
+                              <Input placeholder='Jane Doe' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name='email'
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email *</FormLabel>
+                            <FormControl>
+                              <Input
+                                type='email'
+                                placeholder='jane@example.com'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name='phone'
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Phone</FormLabel>
+                            <FormControl>
+                              <Input
+                                type='tel'
+                                placeholder='(XXX) XXX-XXXX'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name='message'
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder='A very brief message that can strike up a conversation...'
+                                className='min-h-32 resize-none'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <Button
+                        disabled={isSubmitting}
+                        type='submit'
+                        variant='default'
+                        className='w-full'
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            Sending...
+                          </>
+                        ) : (
+                          'Send Message'
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                )}
               </div>
             </CardContent>
           </Card>

@@ -1,7 +1,13 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+
+@layer components {
+  .t200e {
+    @apply transition-all duration-200 ease-in-out;
+  }
+}
 
 :root {
   --background: oklch(1 0 0);
