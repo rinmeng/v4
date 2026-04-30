@@ -88,7 +88,7 @@ export default function Contacts() {
     },
     {
       icon: linkedinlogo,
-      href: 'https://www.linkedin.com/in/rin-m-b28910234/',
+      href: 'https://www.linkedin.com/in/rinmeng/',
       title: 'LinkedIn',
     },
     {
@@ -105,6 +105,11 @@ export default function Contacts() {
       icon: maillogo,
       href: 'mailto:mail@rinm.dev',
       title: 'Email',
+    },
+    {
+      icon: youtubelogo,
+      href: 'https://www.youtube.com/@rinmeng',
+      title: 'YouTube',
     },
   ];
 
