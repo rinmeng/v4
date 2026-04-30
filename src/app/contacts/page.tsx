@@ -110,7 +110,7 @@ export default function Contacts() {
       <div className='container py-16 mx-auto rounded-none shadow-none border-y-0 border-x'></div>
       <div className='border-b w-full border-dashed'></div>
 
-      <Card className='container mx-auto gap-0 py-0 rounded-none border-y-0 '>
+      <Card className='container mx-auto gap-0 py-0 rounded-none border-y-0 shadow-none '>
         <div className='h-auto  w-full flex items-center justify-center'>
           <Card className='container m-5 w-full max-w-6xl overflow-hidden gap-0 '>
             <CardContent className='p-0 flex flex-col lg:flex-row relative'>
@@ -152,7 +152,7 @@ export default function Contacts() {
 
               {/* Contact Form Section */}
               <div className='w-full lg:w-2/3 p-6 items-center'>
-                {!submitted ? (
+                {submitted ? (
                   <SuccessMessage
                     onReset={() => {
                       form.reset();
