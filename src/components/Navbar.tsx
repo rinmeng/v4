@@ -119,8 +119,8 @@ export default function Navbar() {
                     </div>
                   </SheetTrigger>
                   <SheetContent side='right'>
-                    <SheetHeader className='flex items-center'>
-                      <SheetTitle className='mt-10'>
+                    <SheetHeader className='flex items-center pt-8'>
+                      <SheetTitle>
                         <Image
                           src={rmlogo}
                           alt='RM Logo'
