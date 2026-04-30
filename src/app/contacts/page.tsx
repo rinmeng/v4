@@ -126,7 +126,7 @@ export default function Contacts() {
         {/* Main content */}
         <div className='flex flex-col lg:flex-row'>
           {/* Form panel */}
-          <div className='grow px-6 py-8 lg:border-r border-dashed'>
+          <div className='grow px-6 py-8 lg:border-r border-dashed flex flex-col'>
             {submitted ? (
               <SuccessMessage
                 onReset={() => {
@@ -135,10 +135,10 @@ export default function Contacts() {
                 }}
               />
             ) : (
-              <Form {...form}>
+              <Form {...form} className='flex flex-col flex-1'>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-5 '
+                  className='space-y-5 flex flex-col flex-1'
                 >
                   <FormField
                     control={form.control}
@@ -176,12 +176,12 @@ export default function Contacts() {
                     control={form.control}
                     name='message'
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className='flex flex-col flex-1'>
                         <FormLabel>Message</FormLabel>
-                        <FormControl>
+                        <FormControl className='flex-1'>
                           <Textarea
                             placeholder='A very brief message that can strike up a conversation...'
-                            className='min-h-36 resize-none h-full'
+                            className='resize-none h-full min-h-36'
                             {...field}
                           />
                         </FormControl>
