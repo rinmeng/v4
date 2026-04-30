@@ -159,7 +159,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
         <DialogContent className='w-full md:max-w-3xl h-[80vh] flex flex-col p-0 gap-0'>
           {selectedProject && (
             <>
-              <DialogHeader className='pt-8'>
+              <DialogHeader>
                 <DialogTitle className='text-3xl font-extralight'>
                   {selectedProject.title}
                 </DialogTitle>
