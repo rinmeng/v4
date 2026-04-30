@@ -135,10 +135,10 @@ export default function Contacts() {
                 }}
               />
             ) : (
-              <Form {...form} className='flex flex-col flex-1'>
+              <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-5 flex flex-col flex-1'
+                  className='space-y-5 flex flex-col flex-1 h-full'
                 >
                   <FormField
                     control={form.control}
