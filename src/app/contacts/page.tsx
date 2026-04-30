@@ -106,11 +106,6 @@ export default function Contacts() {
       href: 'mailto:mail@rinm.dev',
       title: 'Email',
     },
-    {
-      icon: youtubelogo,
-      href: 'https://www.youtube.com/@rinmeng',
-      title: 'YouTube',
-    },
   ];
 
   return (
