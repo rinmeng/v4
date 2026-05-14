@@ -1,4 +1,5 @@
 import rmlogo from "@/assets/rmlogov2.png";
+import web8th from "@/assets/logo_white_svg_600px.svg";
 import {
   Card,
   CardContent,
@@ -16,21 +17,21 @@ export default function Footer() {
   return (
     <>
       <div className="border-b w-full border-dashed"></div>
-      <Card className="text-center rounded-none border-y-0 border-x shadow-none container mx-auto ">
+      <Card className="text-center rounded-none border-y-0 border-x shadow-none container mx-auto gap-4">
         <CardHeader>
-          <CardTitle>&copy; {getYear()} rin meng</CardTitle>
+          <CardTitle className="flex justify-center items-center gap-2">
+            &copy; {getYear()} rin meng
+            <span>
+              <Image src={rmlogo} alt="rmlogo" className="w-12 h-auto mx-1" />
+            </span>
+          </CardTitle>
           <CardDescription className="text-lg"></CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-sm flex items-center justify-center space-x-2">
-            <p>made with ❤️ by</p>
+          <div className="text-sm flex items-center justify-center">
             <span>
-              <a
-                href="https://github.com/rinmeng"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Image src={rmlogo} alt="rmlogo" className="w-16 h-auto mx-1" />
+              <a href="https://web8th.com" target="_blank" rel="noreferrer">
+                <Image src={web8th} alt="web8th" className="w-64 h-auto" />
               </a>
             </span>
           </div>
