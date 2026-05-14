@@ -22,7 +22,11 @@ export default function Footer() {
           <CardTitle className="flex justify-center items-center gap-2">
             &copy; {getYear()} rin meng
             <span>
-              <Image src={rmlogo} alt="rmlogo" className="w-12 h-auto mx-1" />
+              <Image
+                src={rmlogo}
+                alt="rmlogo"
+                className="w-12 h-auto mx-1 not-dark:invert-100"
+              />
             </span>
           </CardTitle>
           <CardDescription className="text-lg"></CardDescription>
@@ -31,7 +35,11 @@ export default function Footer() {
           <div className="text-sm flex items-center justify-center">
             <span>
               <a href="https://web8th.com" target="_blank" rel="noreferrer">
-                <Image src={web8th} alt="web8th" className="w-64 h-auto" />
+                <Image
+                  src={web8th}
+                  alt="web8th"
+                  className="w-64 h-auto not-dark:invert-100"
+                />
               </a>
             </span>
           </div>
