@@ -136,7 +136,6 @@ const Home: React.FC = () => {
           width={1920}
           height={1080}
           alt='cover'
-          objectFit='cover'
         />
 
         <div

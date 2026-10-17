@@ -78,7 +78,6 @@ export default function Navbar() {
                 alt='KDT Logo'
                 className='w-16 h-auto dark:invert-0 not-dark:invert-100 ml-4'
                 width={64}
-                height={64}
                 priority
               />
             </Link>
@@ -98,11 +97,12 @@ export default function Navbar() {
                     return (
                       <Button
                         key={item}
-                        asChild
+                        nativeButton={false}
+                        render={<Link href={`/${itemPath}`} />}
                         variant={isActive ? 'default' : 'outline'}
                         className='text-base font-medium'
                       >
-                        <Link href={`/${itemPath}`}>{item}</Link>
+                        {item}
                       </Button>
                     );
                   })}
@@ -113,10 +113,8 @@ export default function Navbar() {
               <div className='lg:hidden h-auto flex items-center gap-4'>
                 <ThemeToggle />
                 <Sheet open={open} onOpenChange={setOpen}>
-                  <SheetTrigger asChild>
-                    <div role='button' className='p-2 outline rounded-xl'>
-                      <Menu />
-                    </div>
+                  <SheetTrigger className='p-2 outline rounded-xl'>
+                    <Menu />
                   </SheetTrigger>
                   <SheetContent side='right'>
                     <SheetHeader className='flex items-center pt-8'>
@@ -126,7 +124,6 @@ export default function Navbar() {
                           alt='RM Logo'
                           className='w-28 h-auto mx-auto dark:invert-0 not-dark:invert-100'
                           width={112}
-                          height={112}
                           priority
                         />
                       </SheetTitle>
@@ -145,12 +142,13 @@ export default function Navbar() {
                         return (
                           <Button
                             key={item}
-                            asChild
+                            nativeButton={false}
+                            render={<Link href={`/${itemPath}`} />}
                             variant={isActive ? 'default' : 'ghost'}
                             onClick={() => setOpen(false)}
                             className='w-full justify-center text-lg'
                           >
-                            <Link href={`/${itemPath}`}>{item}</Link>
+                            {item}
                           </Button>
                         );
                       })}

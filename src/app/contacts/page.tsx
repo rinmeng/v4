@@ -239,7 +239,6 @@ export default function Contacts() {
                           src={link.icon}
                           alt={link.title}
                           width={32}
-                          height={32}
                           className='dark:invert not-dark:invert-0 shrink-0'
                         />
                         <span className='text-base font-extralight text-secondary'>

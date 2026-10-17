@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Label as LabelPrimitive, Slot } from "radix-ui"
+import { useRender } from "@base-ui/react/use-render"
 import {
   Controller,
   FormProvider,
@@ -89,7 +89,7 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
 function FormLabel({
   className,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+}: React.ComponentProps<typeof Label>) {
   const { error, formItemId } = useFormField()
 
   return (
@@ -103,22 +103,27 @@ function FormLabel({
   )
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot.Root>) {
+function FormControl({
+  children,
+  ...props
+}: Omit<React.HTMLAttributes<HTMLElement>, "children"> & {
+  children: React.ReactElement
+}) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
-  return (
-    <Slot.Root
-      data-slot="form-control"
-      id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
-  )
+  // Base UI's useRender replaces Radix Slot: merges these props into the child
+  return useRender({
+    render: children,
+    props: {
+      "data-slot": "form-control",
+      id: formItemId,
+      "aria-describedby": !error
+        ? `${formDescriptionId}`
+        : `${formDescriptionId} ${formMessageId}`,
+      "aria-invalid": !!error,
+      ...props,
+    },
+  })
 }
 
 function FormDescription({ className, ...props }: React.ComponentProps<"p">) {

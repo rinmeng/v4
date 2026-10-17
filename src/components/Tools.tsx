@@ -73,18 +73,16 @@ const IconWithTooltip = ({
   index: number
   className?: string
 }) => (
-  <TooltipProvider key={`icon-${index}`} delayDuration={0}>
+  <TooltipProvider key={`icon-${index}`} delay={0}>
     <Tooltip>
-      <TooltipTrigger asChild>
-        <div className={cn(iconBoxClasses, className)}>
-          <Image
-            src={icon.imgSrc}
-            alt={icon.text}
-            width={64}
-            height={64}
-            className={cn('w-16', 'h-16', icon.className)}
-          />
-        </div>
+      <TooltipTrigger render={<div className={cn(iconBoxClasses, className)} />}>
+        <Image
+          src={icon.imgSrc}
+          alt={icon.text}
+          width={64}
+          height={64}
+          className={cn('w-16', 'h-16', icon.className)}
+        />
       </TooltipTrigger>
       <TooltipContent side='top'>{icon.text}</TooltipContent>
     </Tooltip>

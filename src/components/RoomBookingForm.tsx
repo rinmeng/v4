@@ -242,6 +242,7 @@ export function RoomBookingForm() {
                       <FormLabel>Building</FormLabel>
                       <Select
                         onValueChange={(value) => {
+                          if (value === null) return;
                           field.onChange(value);
                           setSelectedArea(value);
                           const prefix = getRoomPrefix(value);
@@ -308,24 +309,26 @@ export function RoomBookingForm() {
                     <FormItem className="flex flex-col">
                       <FormLabel>Date</FormLabel>
                       <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl className="w-full">
-                            <Button
-                              variant={"outline"}
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
+                        <FormControl className="w-full">
+                          <PopoverTrigger
+                            render={
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              />
+                            }
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </PopoverTrigger>
+                        </FormControl>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
@@ -349,6 +352,7 @@ export function RoomBookingForm() {
                         <FormLabel>Start Time</FormLabel>
                         <Select
                           onValueChange={(value) => {
+                            if (value === null) return;
                             field.onChange(value);
                             setSelectedStartTime(value);
                             const minEndTime = generateTimeSlots(

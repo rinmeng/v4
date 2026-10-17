@@ -30,8 +30,8 @@ import { projects, ProjectFragmentProps } from '@/lib/project'
 import { PhotoCarousel } from '@/components/PhotoCarousel'
 
 const ProjectCard: React.FC<
-  ProjectFragmentProps & { onMoreInfo: () => void }
-> = ({ title, images, description, link, stacks, onMoreInfo }) => {
+  ProjectFragmentProps & { onMoreInfo: () => void; eager?: boolean }
+> = ({ title, images, description, link, stacks, onMoreInfo, eager }) => {
   const maxVisibleStacks = 4
   const visibleStacks = stacks?.slice(0, maxVisibleStacks) || []
   const remainingCount = stacks ? stacks.length - maxVisibleStacks : 0
@@ -53,6 +53,7 @@ const ProjectCard: React.FC<
             width={1920}
             height={1080}
             style={{ objectFit: 'cover' }}
+            loading={eager ? 'eager' : 'lazy'}
           />
         </AspectRatio>
 
@@ -128,10 +129,12 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
             <div className='container border-t-0 border-x-0 border-b rounded-none w-full border-dashed'></div>
             <CardContent className='pt-6'>
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                {displayedProjects.map((project) => (
+                {displayedProjects.map((project, index) => (
                   <ProjectCard
                     key={project.title}
                     {...project}
+                    // first row is above the fold on /projects (LCP)
+                    eager={!limitDisplay && index < 3}
                     onMoreInfo={() => setSelectedProject(project)}
                   />
                 ))}
