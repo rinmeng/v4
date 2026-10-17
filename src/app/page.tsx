@@ -16,12 +16,38 @@ import { Separator } from '@/components/ui/separator'
 import Tools from '@/components/Tools'
 import Footer from '@/components/Footer'
 import ProjectsFragment from '@/components/ProjectsFragment'
+import { AnimatePresence, motion, type Variants } from 'motion/react'
 
 // Animation configuration - adjust these to control timing
 const CONFIG = {
-  displayDuration: 2500, // How long each phrase stays visible (ms)
-  letterStaggerDelay: 0.105, // Delay between letters starting to animate (seconds)
+  displayDuration: 3000, // How long each phrase cycle lasts, including enter and exit (ms)
+  letterStaggerDelay: 0.1, // Delay between letters starting to animate (seconds)
   maxStaggerDelay: 0.6, // Maximum total stagger time so long phrases still finish in time (seconds)
+  spring: { stiffness: 70, damping: 8 }, // Landing bounce - lower damping = bouncier, higher stiffness = snappier
+}
+
+const letterVariants: Variants = {
+  hidden: { y: '100%', opacity: 0, filter: 'blur(10px)' },
+  visible: {
+    y: '0%',
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: {
+      y: { type: 'spring', ...CONFIG.spring },
+      default: { duration: 0.3, ease: 'easeOut' },
+    },
+  },
+  // Dip down slightly, then fly out the top
+  exit: {
+    y: ['0%', '25%', '-200%'],
+    opacity: [1, 1, 0],
+    filter: ['blur(0px)', 'blur(5px)', 'blur(10px)'],
+    transition: {
+      duration: 0.4,
+      times: [0, 0.35, 1],
+      ease: ['easeInOut', 'easeIn'],
+    },
+  },
 }
 
 const textArray: string[] = [
@@ -36,12 +62,10 @@ const textArray: string[] = [
 
 const AnimatedText: React.FC = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
-  const [key, setKey] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prev) => (prev + 1) % textArray.length)
-      setKey((prev) => prev + 1)
     }, CONFIG.displayDuration)
 
     return () => clearInterval(interval)
@@ -58,37 +82,43 @@ const AnimatedText: React.FC = () => {
     CONFIG.maxStaggerDelay / Math.max(1, letterCount - 1),
   )
 
-  // Shorten each letter's animation so the last letter finishes before the phrase swaps
-  const letterDuration =
-    CONFIG.displayDuration / 1000 - actualStaggerDelay * (letterCount - 1)
-
-  let letterIndex = 0
+  // Exit staggers faster so the next phrase isn't kept waiting
+  const phraseVariants: Variants = {
+    visible: { transition: { staggerChildren: actualStaggerDelay } },
+    exit: { transition: { staggerChildren: actualStaggerDelay / 2 } },
+  }
 
   return (
-    <div className='font-extralight min-w-full px-0 md:px-6 h-16 xl:h-24 flex items-center overflow-hidden'>
-      <div className='relative w-full text-center' key={key}>
-        {words.map((word, wordIndex) => (
-          <React.Fragment key={wordIndex}>
-            <span className='inline-block whitespace-nowrap'>
-              {word.split('').map((letter, i) => (
-                <span
-                  key={i}
-                  className='inline-block animate-swipe-in-out'
-                  style={{
-                    animationDelay: `${letterIndex++ * actualStaggerDelay}s`,
-                    animationDuration: `${letterDuration}s`,
-                    // Promote each letter to its own layer so small moves stay sub-pixel smooth
-                    willChange: 'transform, filter',
-                  }}
-                >
-                  {letter}
-                </span>
-              ))}
-            </span>
-            {wordIndex < words.length - 1 && ' '}
-          </React.Fragment>
-        ))}
-      </div>
+    <div className='font-extralight min-w-full px-2 md:px-6 py-2 h-24 md:h-20 xl:h-28 flex items-center overflow-y-clip overflow-x-visible'>
+      <span className='sr-only'>{currentText}</span>
+      <AnimatePresence mode='wait'>
+        <motion.div
+          key={currentTextIndex}
+          className='relative w-full text-center'
+          aria-hidden
+          variants={phraseVariants}
+          initial='hidden'
+          animate='visible'
+          exit='exit'
+        >
+          {words.map((word, wordIndex) => (
+            <React.Fragment key={wordIndex}>
+              <span className='inline-block whitespace-nowrap'>
+                {word.split('').map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    className='inline-block'
+                    variants={letterVariants}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
+              {wordIndex < words.length - 1 && ' '}
+            </React.Fragment>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }
