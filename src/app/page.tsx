@@ -20,8 +20,8 @@ import ProjectsFragment from '@/components/ProjectsFragment'
 // Animation configuration - adjust these to control timing
 const CONFIG = {
   displayDuration: 2500, // How long each phrase stays visible (ms)
-  wordStaggerDelay: 0.1, // Delay between words starting to animate (seconds)
-  maxStaggerDelay: 0.7, // Maximum total stagger time to ensure all words animate properly (seconds)
+  letterStaggerDelay: 0.105, // Delay between letters starting to animate (seconds)
+  maxStaggerDelay: 0.6, // Maximum total stagger time so long phrases still finish in time (seconds)
 }
 
 const textArray: string[] = [
@@ -50,29 +50,43 @@ const AnimatedText: React.FC = () => {
   const currentText = textArray[currentTextIndex]
   const words = currentText.split(' ')
 
-  // Calculate appropriate stagger delay based on word count
-  // This ensures that all words will begin animating within the maxStaggerDelay time
-  const wordCount = words.length
+  // Calculate appropriate stagger delay based on letter count
+  // This ensures that all letters will begin animating within the maxStaggerDelay time
+  const letterCount = currentText.replace(/ /g, '').length
   const actualStaggerDelay = Math.min(
-    CONFIG.wordStaggerDelay,
-    CONFIG.maxStaggerDelay / Math.max(1, wordCount - 1),
+    CONFIG.letterStaggerDelay,
+    CONFIG.maxStaggerDelay / Math.max(1, letterCount - 1),
   )
+
+  // Shorten each letter's animation so the last letter finishes before the phrase swaps
+  const letterDuration =
+    CONFIG.displayDuration / 1000 - actualStaggerDelay * (letterCount - 1)
+
+  let letterIndex = 0
 
   return (
     <div className='font-extralight min-w-full px-0 md:px-6 h-16 xl:h-24 flex items-center overflow-hidden'>
       <div className='relative w-full text-center' key={key}>
         {words.map((word, wordIndex) => (
-          <span
-            key={wordIndex}
-            className={`inline-block animate-swipe-in-out text-center`}
-            style={{
-              animationDelay: `${wordIndex * actualStaggerDelay}s`,
-              opacity: 0,
-              position: 'relative',
-            }}
-          >
-            {word}&nbsp;
-          </span>
+          <React.Fragment key={wordIndex}>
+            <span className='inline-block whitespace-nowrap'>
+              {word.split('').map((letter, i) => (
+                <span
+                  key={i}
+                  className='inline-block animate-swipe-in-out'
+                  style={{
+                    animationDelay: `${letterIndex++ * actualStaggerDelay}s`,
+                    animationDuration: `${letterDuration}s`,
+                    // Promote each letter to its own layer so small moves stay sub-pixel smooth
+                    willChange: 'transform, filter',
+                  }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
+            {wordIndex < words.length - 1 && ' '}
+          </React.Fragment>
         ))}
       </div>
     </div>
