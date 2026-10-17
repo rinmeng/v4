@@ -110,7 +110,7 @@ const Home: React.FC = () => {
                   <div className='text-xl md:text-3xl font-bold'>
                     hi! i&apos;m <span>rin</span> and i like{' '}
                   </div>
-                  <div className='text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full'>
+                  <div className='text-3xl md:text-4xl xl:text-6xl font-bold text-center w-full font-heading'>
                     <AnimatedText />
                   </div>
                 </div>
@@ -152,9 +152,8 @@ const Home: React.FC = () => {
               className='absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
               bg-linear-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20'
             >
-              Powering my creativity
+              Here's what I use.
               <br />
-              with modern tools
             </CardTitle>
             <CardContent className='px-0 flex justify-center w-full overflow-hidden'>
               <Tools />
@@ -162,7 +161,9 @@ const Home: React.FC = () => {
             <CardFooter
               className='absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight
             bg-linear-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent'
-            ></CardFooter>
+            >
+              <br />
+            </CardFooter>
           </CardHeader>
         </Card>
       </div>

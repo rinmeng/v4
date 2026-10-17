@@ -9,7 +9,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, SendHorizonal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -115,135 +121,138 @@ export default function Contacts() {
       <div className='border-b w-full border-dashed' />
 
       <div className='container mx-auto border-x flex-1'>
-        {/* Hero */}
-        <div className='px-6 pt-12 pb-8 border-b border-dashed'>
-          <h1 className='text-4xl font-bold tracking-tight'>Get in touch</h1>
-          <p className='text-muted-foreground mt-2 max-w-md'>
-            Send me a message or connect on any of my socials.
-          </p>
-        </div>
+        <Card className='w-full h-full ring-0 rounded-none shadow-none bg-transparent gap-0 pb-0'>
+          <CardHeader className='pb-6'>
+            <CardTitle className='text-4xl md:text-6xl font-extralight'>
+              Get in touch
+            </CardTitle>
+            <CardDescription className='text-sm md:text-base'>
+              Send me a message or connect on any of my socials.
+            </CardDescription>
+          </CardHeader>
+          <div className='border-b w-full border-dashed' />
 
-        {/* Main content */}
-        <div className='flex flex-col lg:flex-row'>
-          {/* Form panel */}
-          <div className='grow px-6 py-8 lg:border-r border-dashed flex flex-col'>
-            {submitted ? (
-              <SuccessMessage
-                onReset={() => {
-                  form.reset();
-                  setSubmitted(false);
-                }}
-              />
-            ) : (
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className='space-y-5 flex flex-col flex-1 h-full'
-                >
-                  <FormField
-                    control={form.control}
-                    name='name'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Name *</FormLabel>
-                        <FormControl>
-                          <Input placeholder='Jane Doe' {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='email'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email *</FormLabel>
-                        <FormControl>
-                          <Input
-                            type='email'
-                            placeholder='jane@example.com'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='message'
-                    render={({ field }) => (
-                      <FormItem className='flex flex-col flex-1'>
-                        <FormLabel>Message</FormLabel>
-                        <FormControl className='flex-1'>
-                          <Textarea
-                            placeholder='A very brief message that can strike up a conversation...'
-                            className='resize-none h-full min-h-36'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className='flex w-full justify-end'>
-                    <Button
-                      disabled={isSubmitting}
-                      type='submit'
-                      variant='default'
-                      className='w-full sm:w-auto px-8'
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className='animate-spin mr-2' />
-                          Sending...
-                        </>
-                      ) : (
-                        'Send Message'
+          <CardContent className='flex flex-col lg:flex-row flex-1 px-0'>
+            {/* Form panel */}
+            <div className='grow px-6 py-8 lg:border-r border-dashed flex flex-col'>
+              {submitted ? (
+                <SuccessMessage
+                  onReset={() => {
+                    form.reset();
+                    setSubmitted(false);
+                  }}
+                />
+              ) : (
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className='space-y-5 flex flex-col flex-1 h-full'
+                  >
+                    <FormField
+                      control={form.control}
+                      name='name'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name *</FormLabel>
+                          <FormControl>
+                            <Input placeholder='Jane Doe' {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
                       )}
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            )}
-          </div>
+                    />
 
-          {/* Socials panel */}
-          <div className='lg:w-72 px-6 py-8 border-t lg:border-t-0 border-dashed'>
-            <h2 className='text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4'>
-              Socials
-            </h2>
-            <div className='flex flex-col gap-2'>
-              {socialLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Card className='hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 bg-secondary-foreground'>
-                    <CardContent className='flex flex-row justify-between items-center gap-4 px-4 py-0'>
-                      <Image
-                        src={link.icon}
-                        alt={link.title}
-                        width={32}
-                        height={32}
-                        className='dark:invert not-dark:invert-0 shrink-0'
-                      />
-                      <span className='text-base font-extralight text-secondary'>
-                        {link.title}
-                      </span>
-                    </CardContent>
-                  </Card>
-                </a>
-              ))}
+                    <FormField
+                      control={form.control}
+                      name='email'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email *</FormLabel>
+                          <FormControl>
+                            <Input
+                              type='email'
+                              placeholder='jane@example.com'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='message'
+                      render={({ field }) => (
+                        <FormItem className='flex flex-col flex-1'>
+                          <FormLabel>Message</FormLabel>
+                          <FormControl className='flex-1'>
+                            <Textarea
+                              placeholder='A very brief message that can strike up a conversation...'
+                              className='resize-none h-full min-h-36'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className='flex w-full justify-end'>
+                      <Button
+                        disabled={isSubmitting}
+                        type='submit'
+                        variant='default'
+                        className='w-full sm:w-auto px-8'
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className='animate-spin mr-2' />
+                            Sending...
+                          </>
+                        ) : (
+                          'Send Message'
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
+              )}
             </div>
-          </div>
-        </div>
+
+            {/* Socials panel */}
+            <div className='lg:w-72 px-6 py-8 border-t lg:border-t-0 border-dashed'>
+              <h2 className='text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4'>
+                Socials
+              </h2>
+              <div className='flex flex-col gap-2'>
+                {socialLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Card className='hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 bg-secondary-foreground'>
+                      <CardContent className='flex flex-row justify-between items-center gap-4 px-4 py-0'>
+                        <Image
+                          src={link.icon}
+                          alt={link.title}
+                          width={32}
+                          height={32}
+                          className='dark:invert not-dark:invert-0 shrink-0'
+                        />
+                        <span className='text-base font-extralight text-secondary'>
+                          {link.title}
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Toaster />
