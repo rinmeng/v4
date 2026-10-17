@@ -234,7 +234,7 @@ export default function Contacts() {
                         height={32}
                         className='dark:invert not-dark:invert-0 shrink-0'
                       />
-                      <span className='text-base font-extralight text-primary-foreground'>
+                      <span className='text-base font-extralight text-secondary'>
                         {link.title}
                       </span>
                     </CardContent>

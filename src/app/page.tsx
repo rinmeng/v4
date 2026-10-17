@@ -1,28 +1,28 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import cal from '@/assets/cal.jpeg';
+'use client'
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import cal from '@/assets/cal.jpeg'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { ArrowBigRightIcon, SquareArrowOutUpRight } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import Tools from '@/components/Tools';
-import Footer from '@/components/Footer';
-import ProjectsFragment from '@/components/ProjectsFragment';
+} from '@/components/ui/card'
+import { ArrowBigRightIcon, SquareArrowOutUpRight } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import Tools from '@/components/Tools'
+import Footer from '@/components/Footer'
+import ProjectsFragment from '@/components/ProjectsFragment'
 
 // Animation configuration - adjust these to control timing
 const CONFIG = {
   displayDuration: 2500, // How long each phrase stays visible (ms)
   wordStaggerDelay: 0.1, // Delay between words starting to animate (seconds)
   maxStaggerDelay: 0.7, // Maximum total stagger time to ensure all words animate properly (seconds)
-};
+}
 
 const textArray: string[] = [
   'Video Editing',
@@ -32,31 +32,31 @@ const textArray: string[] = [
   'Learning Frameworks',
   'Analyzing Data',
   // You can add more items here and they'll work automatically
-];
+]
 
 const AnimatedText: React.FC = () => {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [key, setKey] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0)
+  const [key, setKey] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % textArray.length);
-      setKey((prev) => prev + 1);
-    }, CONFIG.displayDuration);
+      setCurrentTextIndex((prev) => (prev + 1) % textArray.length)
+      setKey((prev) => prev + 1)
+    }, CONFIG.displayDuration)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
-  const currentText = textArray[currentTextIndex];
-  const words = currentText.split(' ');
+  const currentText = textArray[currentTextIndex]
+  const words = currentText.split(' ')
 
   // Calculate appropriate stagger delay based on word count
   // This ensures that all words will begin animating within the maxStaggerDelay time
-  const wordCount = words.length;
+  const wordCount = words.length
   const actualStaggerDelay = Math.min(
     CONFIG.wordStaggerDelay,
     CONFIG.maxStaggerDelay / Math.max(1, wordCount - 1),
-  );
+  )
 
   return (
     <div className='font-extralight min-w-full px-0 md:px-6 h-16 xl:h-24 flex items-center overflow-hidden'>
@@ -76,8 +76,8 @@ const AnimatedText: React.FC = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Home: React.FC = () => {
   return (
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
         />
 
         <div
-          className='relative flex justify-center lg:justify-start items-center 
+          className='relative flex justify-center lg:justify-start items-center
         h-full w-full container mx-auto'
         >
           <Card
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
           <CardHeader className='gap-0 px-0 w-full'>
             <CardTitle
               className='absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
-              bg-gradient-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20'
+              bg-linear-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20'
             >
               Powering my creativity
               <br />
@@ -160,8 +160,8 @@ const Home: React.FC = () => {
               <Tools />
             </CardContent>
             <CardFooter
-              className='absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight 
-            bg-gradient-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent'
+              className='absolute flex justify-center bottom-0 w-screen mx-0 text-center font-extralight
+            bg-linear-to-t from-background from-30% via-background/50 via-80% to-transparent to-100% py-20 not-dark:text-accent-foreground/10 dark:text-accent'
             ></CardFooter>
           </CardHeader>
         </Card>
@@ -171,13 +171,13 @@ const Home: React.FC = () => {
 
       <div className='container mx-auto border-x w-full border-dashed py-10'></div>
       <div className='border-b w-full border-dashed'></div>
-      <Card className='container mx-auto rounded-none border-y-0 shadow-none'>
+      <Card className='container mx-auto rounded-none border-x ring-0 shadow-none bg-transparent'>
         <ProjectsFragment limitDisplay={true} />
       </Card>
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

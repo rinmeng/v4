@@ -1,5 +1,5 @@
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Button } from '@/components/ui/button';
+import { AspectRatio } from '@/components/ui/aspect-ratio'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -7,40 +7,40 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/components/ui/card'
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   ArrowRight,
   ExternalLink,
   Info,
   SquareArrowOutUpRight,
-} from 'lucide-react';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { projects, ProjectFragmentProps } from '@/lib/project';
-import { PhotoCarousel } from '@/components/PhotoCarousel';
+} from 'lucide-react'
+import React, { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { projects, ProjectFragmentProps } from '@/lib/project'
+import { PhotoCarousel } from '@/components/PhotoCarousel'
 
 const ProjectCard: React.FC<
   ProjectFragmentProps & { onMoreInfo: () => void }
 > = ({ title, images, description, link, stacks, onMoreInfo }) => {
-  const maxVisibleStacks = 4;
-  const visibleStacks = stacks?.slice(0, maxVisibleStacks) || [];
-  const remainingCount = stacks ? stacks.length - maxVisibleStacks : 0;
+  const maxVisibleStacks = 4
+  const visibleStacks = stacks?.slice(0, maxVisibleStacks) || []
+  const remainingCount = stacks ? stacks.length - maxVisibleStacks : 0
 
   // Truncate description to approximately 3 lines (about 150 characters)
   const truncatedDescription =
     description.length > 150
       ? description.substring(0, 150).trim() + '...'
-      : description;
+      : description
 
   return (
     <Card className='flex flex-col h-full gap-0'>
@@ -100,23 +100,23 @@ const ProjectCard: React.FC<
         )}
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
 
 const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
   limitDisplay = false,
 }) => {
   const [selectedProject, setSelectedProject] =
-    useState<ProjectFragmentProps | null>(null);
+    useState<ProjectFragmentProps | null>(null)
 
   // If limitDisplay is true, only show the first 3 projects
-  const displayedProjects = limitDisplay ? projects.slice(0, 3) : projects;
+  const displayedProjects = limitDisplay ? projects.slice(0, 3) : projects
 
   return (
     <>
       <div className='container mx-auto px-0'>
         <div className='flex w-full flex-col items-center justify-start h-auto'>
-          <Card className='w-full border-t-0 border-x-0 border-b-0 rounded-none shadow-none'>
+          <Card className='w-full border-t-0 border-x-0 border-b-0 ring-0 rounded-none shadow-none bg-transparent'>
             <CardHeader>
               <CardTitle className='text-4xl md:text-6xl font-extralight'>
                 Projects
@@ -156,10 +156,10 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
         open={!!selectedProject}
         onOpenChange={() => setSelectedProject(null)}
       >
-        <DialogContent className='w-full md:max-w-3xl h-[80vh] flex flex-col p-0 gap-0'>
+        <DialogContent className='w-full md:max-w-3xl h-[80vh] flex flex-col p-0 gap-0 overflow-hidden'>
           {selectedProject && (
             <>
-              <DialogHeader>
+              <DialogHeader className='border-b px-6 py-4 pr-14'>
                 <DialogTitle className='text-3xl font-extralight'>
                   {selectedProject.title}
                 </DialogTitle>
@@ -217,7 +217,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                 </div>
               </ScrollArea>
 
-              <DialogFooter>
+              <DialogFooter className='border-t px-6 py-4 gap-3'>
                 {selectedProject.github_link && (
                   <Button
                     variant='secondary'
@@ -245,7 +245,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
         </DialogContent>
       </Dialog>
     </>
-  );
-};
+  )
+}
 
-export default ProjectsFragment;
+export default ProjectsFragment

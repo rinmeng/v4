@@ -4,15 +4,65 @@ import {
   Carousel,
   CarouselApi,
   CarouselContent,
-  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  useCarousel,
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';
+
+function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
+  const { api } = useCarousel();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => setSelectedIndex(api.selectedScrollSnap());
+    const onReInit = () => {
+      setScrollSnaps(api.scrollSnapList());
+      onSelect();
+    };
+
+    onReInit();
+    api.on('select', onSelect);
+    api.on('reInit', onReInit);
+
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onReInit);
+    };
+  }, [api]);
+
+  return (
+    <div
+      data-slot='carousel-dots'
+      className={cn(
+        'absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2',
+        className,
+      )}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          className={cn(
+            'size-2 rounded-full transition-all',
+            index === selectedIndex
+              ? 'bg-primary w-4'
+              : 'bg-primary/50 hover:bg-primary/75',
+          )}
+          onClick={() => api?.scrollTo(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
 
 interface PhotoCarouselProps {
   images: (string | StaticImageData)[];
@@ -64,7 +114,11 @@ export function PhotoCarousel({
 
   useEffect(() => {
     if (!api || !onIndexChange) return;
-    api.on('select', () => onIndexChange(api.selectedScrollSnap()));
+    const onSelect = () => onIndexChange(api.selectedScrollSnap());
+    api.on('select', onSelect);
+    return () => {
+      api.off('select', onSelect);
+    };
   }, [api, onIndexChange]);
 
   return (

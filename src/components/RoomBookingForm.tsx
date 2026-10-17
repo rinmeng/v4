@@ -123,7 +123,7 @@ const formSchema = z.object({
   startTime: z.string(),
   endTime: z.string(),
   title: z.string().min(1, "Title is required"),
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address"),
 });
 
 type FormattedValues = {
