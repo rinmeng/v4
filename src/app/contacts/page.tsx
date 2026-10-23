@@ -1,23 +1,23 @@
-'use client';
-import githublogo from '@/assets/icons/githublogo.png';
-import instagramlogo from '@/assets/icons/instagramlogo.png';
-import linkedinlogo from '@/assets/icons/linkedinlogo.png';
-import maillogo from '@/assets/icons/maillogo.png';
-import youtubelogo from '@/assets/icons/youtubelogo.png';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, SendHorizonal } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+'use client'
+import githublogo from '@/assets/icons/githublogo.png'
+import instagramlogo from '@/assets/icons/instagramlogo.png'
+import linkedinlogo from '@/assets/icons/linkedinlogo.png'
+import maillogo from '@/assets/icons/maillogo.png'
+import youtubelogo from '@/assets/icons/youtubelogo.png'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2, SendHorizonal } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Form,
   FormControl,
@@ -25,15 +25,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 import {
   contactSchema,
   sendContactForm,
   type ContactFormValues,
-} from '@/lib/contact.service';
-import { toast, Toaster } from 'sonner';
-import Footer from '@/components/Footer';
-import Image, { StaticImageData } from 'next/image';
+} from '@/lib/contact.service'
+import { toast, Toaster } from 'sonner'
+import Footer from '@/components/Footer'
+import Image, { StaticImageData } from 'next/image'
 
 function SuccessMessage({ onReset }: { onReset: () => void }) {
   return (
@@ -47,18 +47,18 @@ function SuccessMessage({ onReset }: { onReset: () => void }) {
         Send another message
       </Button>
     </div>
-  );
+  )
 }
 
 interface SocialLink {
-  icon: StaticImageData;
-  href: string;
-  title: string;
+  icon: StaticImageData
+  href: string
+  title: string
 }
 
 export default function Contacts() {
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -67,24 +67,24 @@ export default function Contacts() {
       email: '',
       message: '',
     },
-  });
+  })
 
   const onSubmit = async (values: ContactFormValues) => {
-    setIsSubmitting(true);
+    setIsSubmitting(true)
     try {
-      await sendContactForm(values);
-      setSubmitted(true);
+      await sendContactForm(values)
+      setSubmitted(true)
       toast.success('Message sent', {
         description: 'Your message has been sent successfully.',
-      });
+      })
     } catch (error: unknown) {
       toast.error('Failed to send message', {
         description: error instanceof Error ? error.message : 'Unknown error',
-      });
+      })
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   const socialLinks: SocialLink[] = [
     {
@@ -112,7 +112,7 @@ export default function Contacts() {
       href: 'mailto:mail@rinm.dev',
       title: 'Email',
     },
-  ];
+  ]
 
   return (
     <div className='animate-fade-in animate-duration-500 min-h-screen flex flex-col'>
@@ -138,8 +138,8 @@ export default function Contacts() {
               {submitted ? (
                 <SuccessMessage
                   onReset={() => {
-                    form.reset();
-                    setSubmitted(false);
+                    form.reset()
+                    setSubmitted(false)
                   }}
                 />
               ) : (
@@ -257,5 +257,5 @@ export default function Contacts() {
       <Toaster />
       <Footer />
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-'use client';
-import { Card, CardContent } from '@/components/ui/card';
+'use client'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
   CarouselApi,
@@ -8,42 +8,42 @@ import {
   CarouselNext,
   CarouselPrevious,
   useCarousel,
-} from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
-import Autoplay from 'embla-carousel-autoplay';
-import Image, { StaticImageData } from 'next/image';
-import { useEffect, useState } from 'react';
+} from '@/components/ui/carousel'
+import { cn } from '@/lib/utils'
+import Autoplay from 'embla-carousel-autoplay'
+import Image, { StaticImageData } from 'next/image'
+import { useEffect, useState } from 'react'
 
 function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
-  const { api } = useCarousel();
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const { api } = useCarousel()
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
   useEffect(() => {
-    if (!api) return;
+    if (!api) return
 
-    const onSelect = () => setSelectedIndex(api.selectedScrollSnap());
+    const onSelect = () => setSelectedIndex(api.selectedScrollSnap())
     const onReInit = () => {
-      setScrollSnaps(api.scrollSnapList());
-      onSelect();
-    };
+      setScrollSnaps(api.scrollSnapList())
+      onSelect()
+    }
 
-    onReInit();
-    api.on('select', onSelect);
-    api.on('reInit', onReInit);
+    onReInit()
+    api.on('select', onSelect)
+    api.on('reInit', onReInit)
 
     return () => {
-      api.off('select', onSelect);
-      api.off('reInit', onReInit);
-    };
-  }, [api]);
+      api.off('select', onSelect)
+      api.off('reInit', onReInit)
+    }
+  }, [api])
 
   return (
     <div
       data-slot='carousel-dots'
       className={cn(
         'absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2',
-        className,
+        className
       )}
       {...props}
     >
@@ -54,30 +54,30 @@ function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
             'size-2 rounded-full transition-all',
             index === selectedIndex
               ? 'bg-primary w-4'
-              : 'bg-primary/50 hover:bg-primary/75',
+              : 'bg-primary/50 hover:bg-primary/75'
           )}
           onClick={() => api?.scrollTo(index)}
           aria-label={`Go to slide ${index + 1}`}
         />
       ))}
     </div>
-  );
+  )
 }
 
 interface PhotoCarouselProps {
-  images: (string | StaticImageData)[];
-  autoplayDelay?: number;
-  className?: string;
-  containerClassName?: string;
-  itemsToShow?: 1 | 2 | 3;
-  btnVariant?: 'default' | 'outline' | 'ghost' | 'secondary';
-  navigation?: 'overlay' | 'bottom-center' | 'side-center' | 'below' | 'none';
-  showButtons?: boolean;
-  fullWidth?: boolean;
-  showDots?: boolean;
-  objectFit?: 'cover' | 'contain';
-  objectPosition?: string;
-  onIndexChange?: (index: number) => void;
+  images: (string | StaticImageData)[]
+  autoplayDelay?: number
+  className?: string
+  containerClassName?: string
+  itemsToShow?: 1 | 2 | 3
+  btnVariant?: 'default' | 'outline' | 'ghost' | 'secondary'
+  navigation?: 'overlay' | 'bottom-center' | 'side-center' | 'below' | 'none'
+  showButtons?: boolean
+  fullWidth?: boolean
+  showDots?: boolean
+  objectFit?: 'cover' | 'contain'
+  objectPosition?: string
+  onIndexChange?: (index: number) => void
 }
 
 export function PhotoCarousel({
@@ -100,33 +100,33 @@ export function PhotoCarousel({
       ? 'basis-full'
       : itemsToShow === 2
         ? 'md:basis-1/2'
-        : 'md:basis-1/2 lg:basis-1/3';
+        : 'md:basis-1/2 lg:basis-1/3'
 
   const carouselOpts = {
     align: 'start' as const,
     loop: true,
-  };
+  }
 
   // Only use Autoplay plugin if autoplayDelay is greater than 0
-  const plugins = autoplayDelay > 0 ? [Autoplay({ delay: autoplayDelay })] : [];
+  const plugins = autoplayDelay > 0 ? [Autoplay({ delay: autoplayDelay })] : []
 
-  const [api, setApi] = useState<CarouselApi>();
+  const [api, setApi] = useState<CarouselApi>()
 
   useEffect(() => {
-    if (!api || !onIndexChange) return;
-    const onSelect = () => onIndexChange(api.selectedScrollSnap());
-    api.on('select', onSelect);
+    if (!api || !onIndexChange) return
+    const onSelect = () => onIndexChange(api.selectedScrollSnap())
+    api.on('select', onSelect)
     return () => {
-      api.off('select', onSelect);
-    };
-  }, [api, onIndexChange]);
+      api.off('select', onSelect)
+    }
+  }, [api, onIndexChange])
 
   return (
     <section
       className={cn(
         !fullWidth && 'container mx-auto',
         itemsToShow === 1 && 'bg-transparent',
-        className,
+        className
       )}
     >
       <Carousel
@@ -143,14 +143,14 @@ export function PhotoCarousel({
               key={index}
               className={cn(
                 itemsToShow === 1 ? 'pl-4' : 'pl-2 md:pl-4',
-                itemBasisClass,
+                itemBasisClass
               )}
             >
               {itemsToShow === 1 ? (
                 <div
                   className={cn(
                     'flex items-center justify-center relative bg-transparent w-full',
-                    containerClassName,
+                    containerClassName
                   )}
                 >
                   <Image
@@ -159,7 +159,7 @@ export function PhotoCarousel({
                     fill
                     className={cn(
                       'rounded-md',
-                      objectFit === 'cover' ? 'object-cover' : 'object-contain',
+                      objectFit === 'cover' ? 'object-cover' : 'object-contain'
                     )}
                     style={{ objectPosition }}
                   />
@@ -169,7 +169,7 @@ export function PhotoCarousel({
                   <CardContent
                     className={cn(
                       'flex items-center justify-center p-0 relative',
-                      containerClassName,
+                      containerClassName
                     )}
                   >
                     <Image
@@ -180,7 +180,7 @@ export function PhotoCarousel({
                         'rounded-md',
                         objectFit === 'cover'
                           ? 'object-cover'
-                          : 'object-contain',
+                          : 'object-contain'
                       )}
                       style={{ objectPosition }}
                     />
@@ -266,5 +266,5 @@ export function PhotoCarousel({
         {/* Navigation: None - render nothing */}
       </Carousel>
     </section>
-  );
+  )
 }

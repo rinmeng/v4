@@ -1,28 +1,28 @@
-'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Menu, MoonIcon, SunIcon } from 'lucide-react';
-import { useState } from 'react';
+'use client'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Menu, MoonIcon, SunIcon } from 'lucide-react'
+import { useState } from 'react'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { useTheme } from 'next-themes';
-import githublogo from '@/assets/icons/githublogo.png';
-import instagramlogo from '@/assets/icons/instagramlogo.png';
-import linkedinlogo from '@/assets/icons/linkedinlogo.png';
-import maillogo from '@/assets/icons/maillogo.png';
-import rmlogo from '@/assets/rmlogov2.png';
-import IconLink from '@/components/IconLink';
-import Image from 'next/image';
+} from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
+import { useTheme } from 'next-themes'
+import githublogo from '@/assets/icons/githublogo.png'
+import instagramlogo from '@/assets/icons/instagramlogo.png'
+import linkedinlogo from '@/assets/icons/linkedinlogo.png'
+import maillogo from '@/assets/icons/maillogo.png'
+import rmlogo from '@/assets/rmlogov2.png'
+import IconLink from '@/components/IconLink'
+import Image from 'next/image'
 
 // Theme Toggle Button component
 function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
 
   return (
     <div
@@ -34,13 +34,13 @@ function ThemeToggle() {
       <MoonIcon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
       <span className='sr-only'>Toggle theme</span>
     </div>
-  );
+  )
 }
 
 export default function Navbar() {
-  const pathname = usePathname();
-  const items = ['Home', 'Projects', 'Contacts'];
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname()
+  const items = ['Home', 'Projects', 'Contacts']
+  const [open, setOpen] = useState(false)
 
   const linkIcons = [
     {
@@ -64,7 +64,7 @@ export default function Navbar() {
       imgSrc: linkedinlogo,
       alt: 'linkedin',
     },
-  ];
+  ]
 
   return (
     <div>
@@ -88,11 +88,11 @@ export default function Navbar() {
                 <div className='flex items-center gap-2 lg:gap-4'>
                   <ThemeToggle />
                   {items.map((item) => {
-                    const path = item.toLowerCase();
-                    const itemPath = path === 'home' ? '' : path;
+                    const path = item.toLowerCase()
+                    const itemPath = path === 'home' ? '' : path
                     const isActive =
                       pathname === `/${itemPath}` ||
-                      (pathname === '/' && item === 'Home');
+                      (pathname === '/' && item === 'Home')
 
                     return (
                       <Button
@@ -104,7 +104,7 @@ export default function Navbar() {
                       >
                         {item}
                       </Button>
-                    );
+                    )
                   })}
                 </div>
               </div>
@@ -133,11 +133,11 @@ export default function Navbar() {
                         <ThemeToggle />
                       </div>
                       {items.map((item) => {
-                        const path = item.toLowerCase();
-                        const itemPath = path === 'home' ? '' : path;
+                        const path = item.toLowerCase()
+                        const itemPath = path === 'home' ? '' : path
                         const isActive =
                           pathname === `/${itemPath}` ||
-                          (pathname === '/' && item === 'Home');
+                          (pathname === '/' && item === 'Home')
 
                         return (
                           <Button
@@ -150,7 +150,7 @@ export default function Navbar() {
                           >
                             {item}
                           </Button>
-                        );
+                        )
                       })}
                       <div className='flex flex-col items-center gap-4'></div>
                       <div className='w-full flex justify-center'>
@@ -167,5 +167,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  );
+  )
 }

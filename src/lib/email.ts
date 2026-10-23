@@ -7,10 +7,10 @@ export function buildEmailHtml({
   phone,
   message,
 }: {
-  name: string;
-  email: string;
-  phone?: string;
-  message?: string;
+  name: string
+  email: string
+  phone?: string
+  message?: string
 }) {
   const optionalRow = (label: string, value?: string) =>
     value
@@ -19,7 +19,7 @@ export function buildEmailHtml({
         <td style="color:#64748b;padding:6px 0;width:120px;vertical-align:top;font-size:13px;">${label}</td>
         <td style="color:#1e293b;padding:6px 0;font-size:13px;">${value}</td>
       </tr>`
-      : '';
+      : ''
 
   const optionalMessage = message
     ? `
@@ -27,7 +27,7 @@ export function buildEmailHtml({
       <p style="font-size:12px;color:#64748b;margin:0 0 4px;text-transform:uppercase;letter-spacing:0.08em;">Message</p>
       <p style="font-size:14px;color:#1e293b;margin:0;line-height:1.7;">${message}</p>
     </div>`
-    : '';
+    : ''
 
   return `
     <div style="font-family:system-ui,-apple-system,sans-serif;max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
@@ -62,7 +62,7 @@ export function buildEmailHtml({
       </div>
       
     </div>
-  `;
+  `
 }
 
 export function buildConfirmationHtml({ name }: { name: string }) {
@@ -84,5 +84,5 @@ export function buildConfirmationHtml({ name }: { name: string }) {
       </div>
 
     </div>
-  `;
+  `
 }

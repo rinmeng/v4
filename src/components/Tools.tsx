@@ -52,7 +52,7 @@ const iconBoxClasses = cn(
   emptyBoxClasses,
   'dark:hover:drop-shadow-[0_0_50px_rgba(255,255,255,1)]',
   'not-dark:hover:drop-shadow-[0_0_50px_rgba(0,0,0,1)]',
-  'shadow-none',
+  'shadow-none'
 )
 
 // Reusable empty box component
@@ -75,7 +75,9 @@ const IconWithTooltip = ({
 }) => (
   <TooltipProvider key={`icon-${index}`} delay={0}>
     <Tooltip>
-      <TooltipTrigger render={<div className={cn(iconBoxClasses, className)} />}>
+      <TooltipTrigger
+        render={<div className={cn(iconBoxClasses, className)} />}
+      >
         <Image
           src={icon.imgSrc}
           alt={icon.text}

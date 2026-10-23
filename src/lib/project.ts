@@ -1,53 +1,53 @@
-import { StaticImageData } from 'next/image';
+import { StaticImageData } from 'next/image'
 
 // Import all logos
-import ViteLogo from '@/assets/logos/vite-svgrepo-com.svg';
-import ReactLogo from '@/assets/logos/react-svgrepo-com.svg';
-import TailwindCSSLogo from '@/assets/logos/tailwindcss-icon-svgrepo-com.svg';
-import ExpressLogo from '@/assets/logos/express-svgrepo-com.svg';
-import ShadCNUILogo from '@/assets/logos/shadcnui-white.svg';
-import DockerLogo from '@/assets/logos/docker-svgrepo-com.svg';
-import NodeJSLogo from '@/assets/logos/node-js-svgrepo-com.svg';
-import HTML5Logo from '@/assets/logos/html-5-svgrepo-com.svg';
-import CSS3Logo from '@/assets/logos/css-svgrepo-com.svg';
-import GitLogo from '@/assets/logos/git-svgrepo-com.svg';
-import PostgreSQLLogo from '@/assets/logos/postgresql-svgrepo-com.svg';
-import JavaScriptLogo from '@/assets/logos/javascript-svgrepo-com.svg';
-import TypeScriptLogo from '@/assets/logos/typescript-svgrepo-com.svg';
-import VercelLogo from '@/assets/logos/vercel-fill-white.svg';
-import SupabaseLogo from '@/assets/logos/supabase-seeklogo.svg';
-import JavaLogo from '@/assets/logos/java-svgrepo-com.svg';
-import AndroidStudioLogo from '@/assets/logos/androidstudio-svgrepo-com.svg';
-import FirebaseLogo from '@/assets/logos/firebase-svgrepo-com.svg';
+import ViteLogo from '@/assets/logos/vite-svgrepo-com.svg'
+import ReactLogo from '@/assets/logos/react-svgrepo-com.svg'
+import TailwindCSSLogo from '@/assets/logos/tailwindcss-icon-svgrepo-com.svg'
+import ExpressLogo from '@/assets/logos/express-svgrepo-com.svg'
+import ShadCNUILogo from '@/assets/logos/shadcnui-white.svg'
+import DockerLogo from '@/assets/logos/docker-svgrepo-com.svg'
+import NodeJSLogo from '@/assets/logos/node-js-svgrepo-com.svg'
+import HTML5Logo from '@/assets/logos/html-5-svgrepo-com.svg'
+import CSS3Logo from '@/assets/logos/css-svgrepo-com.svg'
+import GitLogo from '@/assets/logos/git-svgrepo-com.svg'
+import PostgreSQLLogo from '@/assets/logos/postgresql-svgrepo-com.svg'
+import JavaScriptLogo from '@/assets/logos/javascript-svgrepo-com.svg'
+import TypeScriptLogo from '@/assets/logos/typescript-svgrepo-com.svg'
+import VercelLogo from '@/assets/logos/vercel-fill-white.svg'
+import SupabaseLogo from '@/assets/logos/supabase-seeklogo.svg'
+import JavaLogo from '@/assets/logos/java-svgrepo-com.svg'
+import AndroidStudioLogo from '@/assets/logos/androidstudio-svgrepo-com.svg'
+import FirebaseLogo from '@/assets/logos/firebase-svgrepo-com.svg'
 // import PythonLogo from "@/assets/logos/python-svgrepo-com.svg";
-import GitHubLogo from '@/assets/logos/github-white.svg';
-import MySQLLogo from '@/assets/logos/mysql-svgrepo-com.svg';
-import CSharpLogo from '@/assets/logos/csharp-svgrepo-com.svg';
-import UnityLogo from '@/assets/logos/unity-svgrepo-com.svg';
-import NextJSLogo from '@/assets/logos/next-js-svgrepo-com.svg';
+import GitHubLogo from '@/assets/logos/github-white.svg'
+import MySQLLogo from '@/assets/logos/mysql-svgrepo-com.svg'
+import CSharpLogo from '@/assets/logos/csharp-svgrepo-com.svg'
+import UnityLogo from '@/assets/logos/unity-svgrepo-com.svg'
+import NextJSLogo from '@/assets/logos/next-js-svgrepo-com.svg'
 
 // import images
-import KDT from '@/assets/projects/KDT.png';
-import tsengphoto from '@/assets/projects/tsengphoto.png';
-import tsengphoto_2 from '@/assets/projects/tsengphoto-2.png';
-import tsengphoto_3 from '@/assets/projects/tsengphoto-3.png';
-import tsengphoto_4 from '@/assets/projects/tsengphoto-4.png';
-import RM from '@/assets/projects/RM.png';
-import PC8TH from '@/assets/projects/PC8TH.png';
-import CTMS from '@/assets/projects/CTMS.png';
-import HIKELOWNA from '@/assets/projects/HIKELOWNA.png';
-import PHIL331 from '@/assets/projects/PHIL331.png';
-import COSC416 from '@/assets/projects/COSC416.png';
-import SEAC from '@/assets/projects/SEAC.png';
-import NSSS from '@/assets/projects/NSSS.png';
+import KDT from '@/assets/projects/KDT.png'
+import tsengphoto from '@/assets/projects/tsengphoto.png'
+import tsengphoto_2 from '@/assets/projects/tsengphoto-2.png'
+import tsengphoto_3 from '@/assets/projects/tsengphoto-3.png'
+import tsengphoto_4 from '@/assets/projects/tsengphoto-4.png'
+import RM from '@/assets/projects/RM.png'
+import PC8TH from '@/assets/projects/PC8TH.png'
+import CTMS from '@/assets/projects/CTMS.png'
+import HIKELOWNA from '@/assets/projects/HIKELOWNA.png'
+import PHIL331 from '@/assets/projects/PHIL331.png'
+import COSC416 from '@/assets/projects/COSC416.png'
+import SEAC from '@/assets/projects/SEAC.png'
+import NSSS from '@/assets/projects/NSSS.png'
 
 export interface ProjectFragmentProps {
-  title: string;
-  stacks?: string[];
-  images: StaticImageData[];
-  description: string;
-  link?: string;
-  github_link?: string;
+  title: string
+  stacks?: string[]
+  images: StaticImageData[]
+  description: string
+  link?: string
+  github_link?: string
 }
 
 export const projects: ProjectFragmentProps[] = [
@@ -254,4 +254,4 @@ export const projects: ProjectFragmentProps[] = [
         for a platform entirely new to me.`,
     github_link: 'https://github.com/rinmeng/hikelowna',
   },
-];
+]

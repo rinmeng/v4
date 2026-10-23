@@ -79,7 +79,7 @@ const AnimatedText: React.FC = () => {
   const letterCount = currentText.replace(/ /g, '').length
   const actualStaggerDelay = Math.min(
     CONFIG.letterStaggerDelay,
-    CONFIG.maxStaggerDelay / Math.max(1, letterCount - 1),
+    CONFIG.maxStaggerDelay / Math.max(1, letterCount - 1)
   )
 
   // Exit staggers faster so the next phrase isn't kept waiting
@@ -195,7 +195,7 @@ const Home: React.FC = () => {
               className='absolute w-screen mx-0 text-4xl md:text-6xl px-0 text-center font-extralight
               bg-linear-to-b from-background from-10% via-background/50 via-80% to-transparent to-100% py-20'
             >
-              Here's what I use.
+              Here&apos;s what I use.
               <br />
             </CardTitle>
             <CardContent className='px-0 flex justify-center w-full overflow-hidden'>
