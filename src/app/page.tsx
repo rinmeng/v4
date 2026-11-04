@@ -164,29 +164,39 @@ const Home: React.FC = () => {
                 technologies.
               </div>
             </CardContent>
-            <CardFooter className='flex justify-end gap-4 flex-wrap'>
-              <Link
-                href='https://template.rinm.dev'
-                target='_blank'
-                rel='noreferrer'
-              >
-                <Button variant='default' size='lg'>
-                  How I start my projects <SquareArrowOutUpRight />
-                </Button>
-              </Link>
-              <Link href='/projects'>
-                <Button size='lg'>
-                  View Projects
-                  <ArrowBigRightIcon />
-                </Button>
-              </Link>
+            <CardFooter className='flex flex-col sm:flex-row sm:justify-end gap-4'>
               <Link
                 href='https://cosc499.rinm.dev'
                 target='_blank'
                 rel='noreferrer'
+                className='w-full sm:w-auto'
               >
-                <Button variant='outline' size='lg'>
+                <Button
+                  variant='outline'
+                  size='lg'
+                  className='w-full sm:w-auto'
+                >
                   View UBCO COSC 499 Capstone Stats <SquareArrowOutUpRight />
+                </Button>
+              </Link>
+              <Link
+                href='https://template.rinm.dev'
+                target='_blank'
+                rel='noreferrer'
+                className='w-full sm:w-auto'
+              >
+                <Button
+                  variant='default'
+                  size='lg'
+                  className='w-full sm:w-auto'
+                >
+                  How I start my projects <SquareArrowOutUpRight />
+                </Button>
+              </Link>
+              <Link href='/projects' className='w-full sm:w-auto'>
+                <Button size='lg' className='w-full sm:w-auto'>
+                  View Projects
+                  <ArrowBigRightIcon />
                 </Button>
               </Link>
             </CardFooter>
