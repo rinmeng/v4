@@ -158,11 +158,6 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </CardHeader>
-              <div className='text-lg'>
-                hey there. i&apos;m a ubco student majoring in cs and ds.
-                i&apos;m passionate about building websites with modern
-                technologies.
-              </div>
             </CardContent>
             <CardFooter className='flex flex-col sm:flex-row sm:justify-end gap-4'>
               <Link
