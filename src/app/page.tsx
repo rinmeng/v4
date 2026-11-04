@@ -171,13 +171,22 @@ const Home: React.FC = () => {
                 rel='noreferrer'
               >
                 <Button variant='default' size='lg'>
-                  See how my projects are built <SquareArrowOutUpRight />
+                  How I start my projects <SquareArrowOutUpRight />
                 </Button>
               </Link>
               <Link href='/projects'>
                 <Button size='lg'>
                   View Projects
                   <ArrowBigRightIcon />
+                </Button>
+              </Link>
+              <Link
+                href='https://cosc499.rinm.dev'
+                target='_blank'
+                rel='noreferrer'
+              >
+                <Button variant='outline' size='lg'>
+                  View UBCO COSC 499 Capstone Stats <SquareArrowOutUpRight />
                 </Button>
               </Link>
             </CardFooter>
