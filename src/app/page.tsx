@@ -145,7 +145,7 @@ const Home: React.FC = () => {
           <Card
             className='flex flex-col justify-center backdrop-blur-md gap-4 md:gap-6
           bg-white/30 dark:bg-black/30 border border-white/20
-           dark:border-white/10 shadow-lg mx-4'
+           dark:border-white/10 shadow-lg mx-4 max-w-[calc(100vw-2rem)] min-w-0'
           >
             <CardContent>
               <CardHeader>
@@ -174,7 +174,7 @@ const Home: React.FC = () => {
                 <Button
                   variant='outline'
                   size='lg'
-                  className='w-full sm:w-auto'
+                  className='h-auto min-h-10 w-full py-2 text-center whitespace-normal sm:w-auto'
                 >
                   View UBCO COSC 499 Capstone Stats <SquareArrowOutUpRight />
                 </Button>
@@ -188,13 +188,16 @@ const Home: React.FC = () => {
                 <Button
                   variant='default'
                   size='lg'
-                  className='w-full sm:w-auto'
+                  className='h-auto min-h-10 w-full py-2 text-center whitespace-normal sm:w-auto'
                 >
                   How I start my projects <SquareArrowOutUpRight />
                 </Button>
               </Link>
               <Link href='/projects' className='w-full sm:w-auto'>
-                <Button size='lg' className='w-full sm:w-auto'>
+                <Button
+                  size='lg'
+                  className='h-auto min-h-10 w-full py-2 text-center whitespace-normal sm:w-auto'
+                >
                   View Projects
                   <ArrowBigRightIcon />
                 </Button>
