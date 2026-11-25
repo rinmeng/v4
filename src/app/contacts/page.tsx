@@ -4,7 +4,7 @@ import instagramlogo from '@/assets/icons/instagramlogo.png'
 import linkedinlogo from '@/assets/icons/linkedinlogo.png'
 import maillogo from '@/assets/icons/maillogo.png'
 import youtubelogo from '@/assets/icons/youtubelogo.png'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2, SendHorizonal } from 'lucide-react'
@@ -59,6 +59,11 @@ interface SocialLink {
 export default function Contacts() {
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  // Time trap: the server rejects submissions made too soon after the form loads.
+  const renderedAt = useRef(0)
+  useEffect(() => {
+    renderedAt.current = performance.now()
+  }, [])
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -66,13 +71,19 @@ export default function Contacts() {
       name: '',
       email: '',
       message: '',
+      website: '',
     },
   })
 
   const onSubmit = async (values: ContactFormValues) => {
+    const submittedAt = performance.now()
     setIsSubmitting(true)
     try {
-      await sendContactForm(values)
+      await sendContactForm(
+        values,
+        false,
+        Math.round(submittedAt - renderedAt.current)
+      )
       setSubmitted(true)
       toast.success('Message sent', {
         description: 'Your message has been sent successfully.',
@@ -139,13 +150,14 @@ export default function Contacts() {
                 <SuccessMessage
                   onReset={() => {
                     form.reset()
+                    renderedAt.current = performance.now()
                     setSubmitted(false)
                   }}
                 />
               ) : (
                 <Form {...form}>
                   <form
-                    onSubmit={form.handleSubmit(onSubmit)}
+                    onSubmit={(e) => form.handleSubmit(onSubmit)(e)}
                     className='space-y-5 flex flex-col flex-1 h-full'
                   >
                     <FormField
@@ -197,6 +209,30 @@ export default function Contacts() {
                         </FormItem>
                       )}
                     />
+
+                    {/* Honeypot. Moved offscreen rather than display:none, since some
+                        bots skip hidden inputs. Hidden from screen readers and keyboard. */}
+                    <div
+                      aria-hidden='true'
+                      className='absolute -left-[9999px] h-px w-px overflow-hidden'
+                    >
+                      <FormField
+                        control={form.control}
+                        name='website'
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Website</FormLabel>
+                            <FormControl>
+                              <Input
+                                tabIndex={-1}
+                                autoComplete='off'
+                                {...field}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
                     <div className='flex w-full justify-end'>
                       <Button

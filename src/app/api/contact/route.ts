@@ -1,4 +1,5 @@
 import { buildConfirmationHtml, buildEmailHtml } from '@/lib/email'
+import { checkSpam, sendSpamNotification } from '@/lib/spam'
 import { Resend } from 'resend'
 
 export async function POST(req: Request) {
@@ -7,7 +8,33 @@ export async function POST(req: Request) {
   const FROM_EMAIL =
     process.env.NEXT_PUBLIC_RESEND_EMAIL_FROM || 'mail@rinm.dev'
   const body = await req.json()
-  const { name, email, phone, message } = body
+  const { name, email, phone, message, website, formElapsedMs } = body
+
+  // Runs before any email goes out. Spam gets the same success response a real
+  // visitor would, so senders can't tell they were filtered.
+  const spam = checkSpam({ website, formElapsedMs })
+  if (spam.isSpam) {
+    console.warn('Contact form submission dropped as spam:', {
+      reason: spam.reason,
+      email,
+      name,
+      message: String(message ?? '').slice(0, 300),
+    })
+    await sendSpamNotification(resend, {
+      from: FROM_EMAIL,
+      siteName: 'Rin Meng Portfolio',
+      reason: spam.reason ?? 'unknown',
+      fields: {
+        Name: name,
+        Email: email,
+        Phone: phone,
+        'Honeypot (website)': website,
+        'Elapsed ms': formElapsedMs ?? 'missing',
+        Message: message,
+      },
+    })
+    return Response.json({ success: true }, { status: 200 })
+  }
 
   try {
     await Promise.all([

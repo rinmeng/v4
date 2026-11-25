@@ -6,13 +6,16 @@ export const contactSchema = z.object({
   email: z.email('Invalid email address'),
   phone: z.string().optional(),
   message: z.string().optional(),
+  /** Honeypot. Hidden from real users; bots that fill it get dropped server-side. */
+  website: z.string().optional(),
 })
 
 export type ContactFormValues = z.infer<typeof contactSchema>
 
 export async function sendContactForm(
   values: ContactFormValues,
-  bypassRateLimit: boolean = false
+  bypassRateLimit: boolean = false,
+  formElapsedMs?: number
 ): Promise<void> {
   if (!bypassRateLimit && !canSendEmail()) {
     const remaining = Math.ceil(getRemainingCooldown() / 1000 / 60)
@@ -24,7 +27,7 @@ export async function sendContactForm(
   const response = await fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(values),
+    body: JSON.stringify({ ...values, formElapsedMs }),
   })
 
   if (!response.ok) {
