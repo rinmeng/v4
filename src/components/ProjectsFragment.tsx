@@ -120,10 +120,10 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
           <Card className='w-full border-t-0 border-x-0 border-b-0 ring-0 rounded-none shadow-none bg-transparent'>
             <CardHeader>
               <CardTitle className='text-4xl md:text-6xl font-extralight'>
-                Projects
+                Portfolio
               </CardTitle>
               <CardDescription className='text-sm md:text-base'>
-                Here are some of the projects I&apos;ve worked on.
+                Things I&apos;ve built and put out into the world.
               </CardDescription>
             </CardHeader>
             <div className='container border-t-0 border-x-0 border-b rounded-none w-full border-dashed'></div>
@@ -133,7 +133,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
                   <ProjectCard
                     key={project.title}
                     {...project}
-                    // first row is above the fold on /projects (LCP)
+                    // first row is above the fold on /portfolio (LCP)
                     eager={!limitDisplay && index < 3}
                     onMoreInfo={() => setSelectedProject(project)}
                   />
@@ -142,7 +142,7 @@ const ProjectsFragment: React.FC<{ limitDisplay?: boolean }> = ({
 
               {limitDisplay && (
                 <div className='flex justify-center pt-8'>
-                  <Link href='/projects'>
+                  <Link href='/portfolio'>
                     <Button size='lg' variant='outline' className='group'>
                       See More
                       <ArrowRight />

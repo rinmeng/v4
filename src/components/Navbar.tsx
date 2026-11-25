@@ -39,7 +39,7 @@ function ThemeToggle() {
 
 export default function Navbar() {
   const pathname = usePathname()
-  const items = ['Home', 'Projects', 'Contacts']
+  const items = ['Home', 'Portfolio', 'Contacts']
   const [open, setOpen] = useState(false)
 
   const linkIcons = [

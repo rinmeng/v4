@@ -3,7 +3,7 @@ import Footer from '@/components/Footer'
 import ProjectsFragment from '@/components/ProjectsFragment'
 import { Card, CardContent } from '@/components/ui/card'
 
-export default function Projects() {
+export default function Portfolio() {
   return (
     <div className='animate-fade-in'>
       <div className='container py-16 mx-auto rounded-none shadow-none border-y-0 border-x'></div>

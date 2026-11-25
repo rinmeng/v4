@@ -188,12 +188,12 @@ const Home: React.FC = () => {
                   How I start my projects <SquareArrowOutUpRight />
                 </Button>
               </Link>
-              <Link href='/projects' className='w-full sm:w-auto'>
+              <Link href='/portfolio' className='w-full sm:w-auto'>
                 <Button
                   size='lg'
                   className='h-auto min-h-10 w-full py-2 text-center whitespace-normal sm:w-auto'
                 >
-                  View Projects
+                  View Portfolio
                   <ArrowBigRightIcon />
                 </Button>
               </Link>
